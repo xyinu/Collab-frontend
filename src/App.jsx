@@ -2,9 +2,8 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 // Material-UI imports
 
 // MSAL imports
-import { MsalProvider, useIsAuthenticated, useMsal } from "@azure/msal-react";
-import axios from 'axios'
-
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import client from "./axios";
 
 function App() {
   const { instance } = useMsal();
@@ -13,8 +12,8 @@ function App() {
   // The next 3 lines are optional. This is how you configure MSAL to take advantage of the router's navigate functions when MSAL redirects between pages in your app
   const handleLogin = async () => {
     try {
-      const response = await instance.loginPopup();
-      console.log(response); // Here, you can access the access token and other user information
+      const response = await instance.loginRedirect();
+      console.log(response.idToken); // Here, you can access the access token and other user information
     } catch (error) {
       console.log(error);
     }
@@ -30,12 +29,20 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      const response= await instance.logoutPopup()
+      const response= await instance.logoutRedirect()
     } catch (error){
       console.log(error)
     }
   }
   
+  const handleSend = async () => {
+    try {
+      const response= await client.get('/user')
+      console.log(response)
+    } catch (error){
+      console.log(error)
+    }
+  }
 
   return (
     <> 
@@ -44,6 +51,7 @@ function App() {
       <button onClick={handleLogin}>Login</button>
       <button onClick={handleLogout}>Logout</button>
       <button onClick={getAccessToken}>get</button>
+      <button onClick={handleSend}>send</button>
 
       {isAuthenticated && <h1>test</h1>}
       {!isAuthenticated && <h1>tes2t</h1>}
