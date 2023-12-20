@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router } from "react-router-dom";
 import App from './App';
-
+import "./index.css"
 // MSAL imports
 import { PublicClientApplication, EventType } from "@azure/msal-browser";
 import { msalConfig } from "./authConfig";
 import { MsalProvider } from '@azure/msal-react';
+
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -31,10 +31,8 @@ msalInstance.initialize().then(() => {
   const root = ReactDOM.createRoot(container);
 
   root.render(
-    <Router>
       <MsalProvider instance={msalInstance}>
         <App/>
       </MsalProvider>
-    </Router>
   );
 });
