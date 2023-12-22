@@ -3,6 +3,7 @@ import client from "../../axios";
 import ntu_logo from "../../assets/ntu_logo.png"
 import microsoft_icon from "../../assets/microsoft_icon.png"
 import { useState } from "react";
+import NavBar from "../../components/navBar";
 
 function HomePage() {
     const { instance } = useMsal();
@@ -14,7 +15,6 @@ function HomePage() {
       try {
         const response = await instance.loginPopup();
         setName(response.account.name)
-        
       } catch (error) {
         console.log(error);
       }
@@ -47,18 +47,10 @@ function HomePage() {
   
     return (
       <> 
-        {/* <h1 className="text-xl font-bold text-red-500">HI</h1>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogin}>Login</button>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogout}>Logout</button>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={getAccessToken}>get</button>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSend}>send</button>
-        <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1> */}
-  
         {isAuthenticated && 
             <div>
-                <h1>Hello, {name}</h1>
+                <NavBar/>
+                <h1>Hello, {localStorage.getItem('name')}</h1>
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogout}>Logout</button>
             </div>
 
