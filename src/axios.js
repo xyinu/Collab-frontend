@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CacheLookupPolicy, BrowserAuthError } from "@azure/msal-browser";
+import { CacheLookupPolicy, BrowserAuthError, InteractionRequiredAuthError } from "@azure/msal-browser";
 import { msalInstance } from "./main";
 
 
@@ -17,7 +17,8 @@ client.interceptors.request.use(
         
             return config;
         } catch(error){
-            if (error instanceof BrowserAuthError) {
+            console.log(error)
+            if (error instanceof BrowserAuthError || error instanceof InteractionRequiredAuthError) {
                return await msalInstance.loginRedirect()
             }
         }

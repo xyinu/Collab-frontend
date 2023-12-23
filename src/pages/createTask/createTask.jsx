@@ -4,12 +4,27 @@ import react, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NavBar from "../../components/navBar";
+import ListView from "./components/listView";
 
 function CreateTask(){
 
     const [inputs, setInputs] = useState({dueDate:new Date()});
     const [tasks, setTasks] = useState([]);
+    const [TA, setTA]=useState([]);
+    const [TAInput, setTAInput]=useState([])
 
+    async function getTA(){
+        const request = await client.get('ta/')
+        setTA(request.data)
+    }
+
+    const handleTAChange= (e) =>{
+        if(!TAInput.includes(e.target.value)){
+            setTAInput(prev=>[...prev,e.target.value])
+        } else{
+            setTAInput(prev=>prev.filter(item => item !== e.target.value))
+        }
+    }
 
     const handleChange = (event) => {
       const name = event.target.name;
@@ -27,8 +42,14 @@ function CreateTask(){
         setTasks(request.data)
     }
 
+    async function completeTask(e){
+        await client.post('completetask/',{id:e.target.name})
+        getTask()
+    }
+
     const handleSubmit = async (event) =>{
-       await client.post('createtask/',inputs)
+       await client.post('createtask/',{...inputs, 'tas':TAInput})
+       setTAInput([])
        setInputs({dueDate:new Date()})
        getTask()
     }
@@ -36,18 +57,32 @@ function CreateTask(){
 
     useEffect(()=>{
         getTask()
+        getTA()
     },[])
 
     function Form(){
         return(
             <form className="w-full">
                 <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-prof">
-                        TA Email
-                    </label>
-                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-prof" type="text" placeholder="....@e.ntu.edu.sg" onChange={handleChange} name="ta" value={inputs.ta || ""}/>
+                <div className="w-full px-3">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
+                    TA
+                </label>
+                <div className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 mb-1">{TAInput.toString()||"Choose TAs from dropdown. Select TA again to remove"}</div>
+                <div className="relative">
+                    <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" onChange={handleTAChange} name="ta" value={""}>
+                    <option hidden disabled value=''> -- select an option -- </option>
+                    {TA.map((data,idx)=>{
+                        return (
+                            <option key={idx} value={data.email}>{data.name}</option>
+                        )
+                    })}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
+                </div>
+                </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3">
@@ -80,10 +115,11 @@ function CreateTask(){
 
 
     return(
-        <div>
+        <div className="flex flex-col h-screen">
             <NavBar/>
-            <Modal Body={Form} title={"Create Task"} saveFunction={handleSubmit} buttonName={'create task'}/>
-            {
+            {/* <Modal Body={Form} title={"Create Task"} saveFunction={handleSubmit} buttonName={'create task'}/> */}
+            <ListView items={tasks} header={'Tasks'} leftbutton={{onClick:completeTask,text:'complete task'}} Form={Form} saveFunction={handleSubmit}/>
+            {/* {
                 tasks.map((data,index)=>{
                     return (
                         <div key={index}>
@@ -95,7 +131,7 @@ function CreateTask(){
                         </div>
                     )
             })
-            }
+            } */}
         </div>
     )
 }

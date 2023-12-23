@@ -12,7 +12,7 @@ function useThreadForm ({getTicket}){
     const handleThreadSubmit = async ({id}) =>{
         await client.post('createthread/',{details:inputs,id:id})
         setInputs("")
-        getTicket()
+        await getTicket()
      }
 
     const ThreadForm = () =>{

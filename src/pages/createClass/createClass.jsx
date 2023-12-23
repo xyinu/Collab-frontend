@@ -35,6 +35,7 @@ function CreateClass(){
               "Content-Type": "multipart/form-data",
             },
           })
+        getClass()
     }
 
 

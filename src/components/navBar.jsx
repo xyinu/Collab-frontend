@@ -14,7 +14,7 @@ function NavBar(){
   <div className="flex items-center">
     {/* <h3 className="text-2xl font-medium text-blue-500">LOGO</h3> */}
     <Link to="/">
-        <img src={ntu} className="object-scale-down h-30 w-48"/>
+        <img src={ntu} className="object-scale-down h-40 w-58"/>
     </Link>
   </div>
   {/* <!-- left header section --> */}
@@ -22,9 +22,7 @@ function NavBar(){
     <Link to="/">Home</Link>
     <Link to="/createticket">Ticket</Link>
     <Link to="/createtask">Task</Link>
-    <Link to="">Under Review</Link>
-    <Link to="">Pending Response</Link>
-    <Link to="">Done</Link>
+    <Link to="">Completed</Link>
     <Link to="">FAQ</Link>
   </div>
   {/* <!-- right header section --> */}
