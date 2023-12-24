@@ -1,6 +1,7 @@
 import { useState } from "react";
 import client from "../../axios"
 import NavBar from "../../components/navBar";
+import { Typography } from "@material-tailwind/react";
 
 
 function AddUser(){
@@ -26,6 +27,7 @@ function AddUser(){
                     Email
                 </label>
                 <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-prof" type="text" placeholder="" onChange={handleChange} name="email" value={inputs.email || ""}/>
+                <Typography color="red" variant="h6">Make sure to capitalize the first few letters of the email. Eg.TAN123@e.ntu.edu.sg</Typography>
                 </div>
             </div>
             <div className="w-full mb-6 md:mb-0 pb-5">

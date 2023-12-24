@@ -2,14 +2,24 @@ import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import client from "../../axios";
 import ntu_logo from "../../assets/ntu_logo.png"
 import microsoft_icon from "../../assets/microsoft_icon.png"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../../components/navBar";
+import { Card, Typography } from "@material-tailwind/react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
 
 function HomePage() {
     const { instance } = useMsal();
     const isAuthenticated = useIsAuthenticated();
-    const [name,setName]=useState('')
-    console.log(isAuthenticated,"test")
     // The next 3 lines are optional. This is how you configure MSAL to take advantage of the router's navigate functions when MSAL redirects between pages in your app
     const handleLogin = async () => {
       try {
@@ -19,39 +29,105 @@ function HomePage() {
         console.log(error);
       }
     };
-    const getAccessToken= async ()=>{
-      try{
-        const tokenResponse= (await instance.acquireTokenSilent({cacheLookupPolicy:1,scopes: ["openid"]})).idToken
-        console.log(tokenResponse)
-      } catch(error){
-        console.log(error)
-      }
+    const ticketLabels = ['last reply by you','last reply by others','completed']
+    const taskLabels = ['in progress','completed']
+    const [count,setCount]=useState({
+      ticket:[0,0,0],
+      task:[0,0]
+    })
+    const getCount= async ()=>{
+      const res=await client.get('count/')
+      console.log(res.data)
+      setCount(res.data)
     }
-  
-    const handleLogout = async () => {
-      try {
-        const response= await instance.logoutRedirect()
-      } catch (error){
-        console.log(error)
-      }
-    }
-    
-    const handleSend = async () => {
-      try {
-        const response= await client.get('/user')
-        console.log(response)
-      } catch (error){
-        console.log(error)
-      }
-    }
+
+    useEffect(()=>{
+      getCount()
+    },[])
+
+    ChartJS.register(
+      CategoryScale,
+      LinearScale,
+      BarElement,
+      // Title,
+      Tooltip,
+      // Legend
+    );
   
     return (
       <> 
         {isAuthenticated && 
             <div>
                 <NavBar/>
-                <h1>Hello, {localStorage.getItem('name')}</h1>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogout}>Logout</button>
+                <div className="flex flex-row px-4 pt-6">
+                <Card className="border-2 border-black h-full flex-grow w-1/2 mr-2">
+                  <header className="text-black flex items-center justify-center py-4 rounded-lg">
+                  <Typography variant="h5">No. of Tickets</Typography>
+                  </header>
+                  <Bar
+                    data= {{
+                      labels: ticketLabels,
+                      datasets: [{
+                        label: 'Numbers',
+                        data: count.ticket,
+                        backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 159, 64, 0.2)',
+                        ],
+                        borderColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
+                          'rgb(255, 159, 64)',
+                        ],
+                        borderWidth: 1
+                      }]
+                    }}
+                    options= {{
+                      scales: {
+                        y: {
+                          ticks: {
+                            stepSize: 1
+                          },
+                        }
+                      }
+                    }}
+                  />
+                </Card>
+                <Card className="border-2 border-black h-full flex-grow w-1/2 ml-2">
+                  <header className="text-black flex items-center justify-center py-4 rounded-lg">
+                  <Typography variant="h5">No. of Tasks</Typography>
+                  </header>
+                  <Bar
+                    data= {{
+                      labels: taskLabels,
+                      datasets: [{
+                        label: 'Numbers',
+                        data: count.task,
+                        backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(255, 159, 64, 0.2)',
+                        ],
+                        borderColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(255, 159, 64)',
+                        ],
+                        borderWidth: 1,
+                      }]
+                    }}
+                    options= {{
+                      scales: {
+                        y: {
+                          ticks: {
+                            stepSize: 1
+                          },
+                        }
+                      }
+                    }}
+                  />
+                </Card>
+                </div>
+                
             </div>
 
         }
