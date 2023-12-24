@@ -5,6 +5,7 @@ function useTicketForm ({getTicket}){
     const [inputs, setInputs] = useState({category:"Student Request", severity:"High"});
     const [prof, setProf]=useState([])
     const [student, setStudent]=useState([])
+    const [file, setFile] = useState(null);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -13,7 +14,11 @@ function useTicketForm ({getTicket}){
     }
 
     const handleTicketSubmit = async () =>{
-        await client.post('createticket/',inputs)
+        await client.post('createticket/',{...inputs, file:file},{
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
         setInputs({category:"Student Request", severity:"High"})
         getTicket()
     }
@@ -27,6 +32,12 @@ function useTicketForm ({getTicket}){
         const request = await client.get('prof/')
         setProf(request.data)
     }
+
+    const handleFileChange = (e) => {
+        if (e.target.files) {
+          setFile(e.target.files[0]);
+        }
+      };
 
     useEffect(()=>{
         getStudent()
@@ -124,6 +135,17 @@ function useTicketForm ({getTicket}){
                     </div>
                 </div>
                 </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mt-6">
+            <div className="w-full px-3">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                    Upload relevant file if needed
+                </label>
+                <label htmlFor="file" className="sr-only py-3">
+                Choose a file
+                </label>
+                <input id="file" type="file" onChange={handleFileChange} />
+            </div>
             </div>
         </form>
         )

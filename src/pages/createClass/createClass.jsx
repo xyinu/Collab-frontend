@@ -27,10 +27,7 @@ function CreateClass(){
       };
 
     const handleSubmit = async (event) =>{
-        let formData = new FormData();
-        formData.append("file", file);
-        formData.append("course_name",inputs)
-        client.post('createclass/', formData, {
+        client.post('createclass/', {file:file,course_name:inputs}, {
             headers: {
               "Content-Type": "multipart/form-data",
             },

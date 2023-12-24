@@ -22,7 +22,7 @@ function NavBar(){
     <Link to="/">Home</Link>
     <Link to="/createticket">Ticket</Link>
     <Link to="/createtask">Task</Link>
-    <Link to="">Completed</Link>
+    <Link to="/completed">Completed</Link>
     <Link to="">FAQ</Link>
   </div>
   {/* <!-- right header section --> */}

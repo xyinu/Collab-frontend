@@ -12,6 +12,7 @@ function CreateTask(){
     const [tasks, setTasks] = useState([]);
     const [TA, setTA]=useState([]);
     const [TAInput, setTAInput]=useState([])
+    const [file, setFile] = useState(null);
 
     async function getTA(){
         const request = await client.get('ta/')
@@ -48,12 +49,21 @@ function CreateTask(){
     }
 
     const handleSubmit = async (event) =>{
-       await client.post('createtask/',{...inputs, 'tas':TAInput})
+       await client.post('createtask/',{...inputs, 'tas':TAInput, file:file},{
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
        setTAInput([])
        setInputs({dueDate:new Date()})
        getTask()
     }
 
+    const handleFileChange = (e) => {
+        if (e.target.files) {
+          setFile(e.target.files[0]);
+        }
+      };
 
     useEffect(()=>{
         getTask()
@@ -108,6 +118,17 @@ function CreateTask(){
                     <DatePicker selected={inputs.dueDate} name="dueDate" onChange={handleDateChange} showTimeSelect showIcon dateFormat="dd/M/yyyy h:mm aa" className="bg-gray-200 border-gray-200 rounded py-3 px-4 mb-3"/>
                     </div>
                 </div>
+                <div className="flex flex-wrap -mx-3 mt-6">
+                <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Upload relevant file if needed
+                    </label>
+                    <label htmlFor="file" className="sr-only py-3">
+                    Choose a file
+                    </label>
+                    <input id="file" type="file" onChange={handleFileChange} />
+                </div>
+                </div>
                 </form>
         )
     }
@@ -117,21 +138,7 @@ function CreateTask(){
     return(
         <div className="flex flex-col h-screen">
             <NavBar/>
-            {/* <Modal Body={Form} title={"Create Task"} saveFunction={handleSubmit} buttonName={'create task'}/> */}
             <ListView items={tasks} header={'Tasks'} leftbutton={{onClick:completeTask,text:'complete task'}} Form={Form} saveFunction={handleSubmit}/>
-            {/* {
-                tasks.map((data,index)=>{
-                    return (
-                        <div key={index}>
-                            <div>TA: {data.TA}</div>
-                            <div>Prof: {data.prof}</div>
-                            <div>Title: {data.title}</div>
-                            <div>Due Date: {data.dueDate}</div>
-                            <div>Details: {data.details}</div>
-                        </div>
-                    )
-            })
-            } */}
         </div>
     )
 }

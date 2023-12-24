@@ -6,6 +6,7 @@ import {
     Button,
   } from "@material-tailwind/react";
 import Modal from "../../../components/modals";
+import dayjs from 'dayjs'
    
 function CardView({data,completeTicket,ThreadForm,threadSaveFunction}) {
     
@@ -17,32 +18,32 @@ function CardView({data,completeTicket,ThreadForm,threadSaveFunction}) {
         <Typography variant="h5">{data.title}</Typography>
         </header>
         <CardBody>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             FROM: {data.TA}
           </Typography>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             TO: {data.prof}
           </Typography>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             Student: {data.student.name}
           </Typography>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             Category: {data.category}
           </Typography>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             Severity: {data.severity}
           </Typography>
           <Typography>
            Details: {data.details}
           </Typography>
-          <Typography variant="h5" color="blue-gray" className="mb-2 mt-3">
+          <Typography variant="h6" color="blue-gray" className="mb-2 mt-3">
             Thread:
           </Typography>
           {data.thread.map((dat,idx)=>{
             return(
               <div key={idx}>
-              <Typography variant="h5" color="blue-gray">
-                From:{dat.by} Date:{dat.date}
+              <Typography variant="h6" color="blue-gray">
+                From:{dat.by} Date:{dayjs(dat.date).format('DD/MM/YYYY, HH:mm:ss')}
               </Typography>
               <Typography>
                 message: {dat.details}

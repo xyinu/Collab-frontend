@@ -22,7 +22,7 @@ useEffect(()=>{
         {items?.map((data,idx)=>{
             return(
                 <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
-                    {data.title}
+                    <Typography variant="h6">Title: {data.title}</Typography>
                 </ListItem>
             )
         })}

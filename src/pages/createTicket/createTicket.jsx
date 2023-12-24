@@ -12,7 +12,7 @@ function CreateTicket(){
     async function getTicket(){
         const request= await client.get('ticketthread/')
         setTickets(request.data)
-        return request.data
+        console.log(request.data)
     }
 
     const {TicketForm, handleTicketSubmit} = useTicketForm({getTicket})
