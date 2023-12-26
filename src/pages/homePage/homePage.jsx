@@ -10,9 +10,7 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
-  Title,
   Tooltip,
-  Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
@@ -23,8 +21,9 @@ function HomePage() {
     // The next 3 lines are optional. This is how you configure MSAL to take advantage of the router's navigate functions when MSAL redirects between pages in your app
     const handleLogin = async () => {
       try {
-        const response = await instance.loginPopup();
-        setName(response.account.name)
+        await instance.loginPopup();
+        const res = await client.get('usertype/')
+        localStorage.setItem('type',res.data.type)
       } catch (error) {
         console.log(error);
       }
@@ -37,7 +36,6 @@ function HomePage() {
     })
     const getCount= async ()=>{
       const res=await client.get('count/')
-      console.log(res.data)
       setCount(res.data)
     }
 

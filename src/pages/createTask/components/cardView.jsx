@@ -7,8 +7,9 @@ import {
 import dayjs from 'dayjs'
 
    
-function CardView({data, leftbutton, rightbutton}) {
-    console.log(data)
+function CardView({data, completeTask, rightbutton}) {
+  const type=localStorage.getItem('type')
+
     return (
         <>
         {data &&
@@ -32,7 +33,7 @@ function CardView({data, leftbutton, rightbutton}) {
         </CardBody>
         
         <div className="flex justify-between mt-auto">
-            {leftbutton && <Button size="lg" color="blue-gray" name={data.id} onClick={leftbutton.onClick}>{leftbutton.text}</Button>}
+            {type==='Prof' && <Button size="lg" color="blue-gray" name={data.id} onClick={completeTask.onClick}>{completeTask.text}</Button>}
             {rightbutton && <Button size="lg" color="blue-gray" name={data.id} onClick={rightbutton.onClick}>{rightbutton.text}</Button>}
         </div>
         </Card>

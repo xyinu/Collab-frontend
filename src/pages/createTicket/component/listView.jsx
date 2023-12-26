@@ -5,6 +5,7 @@ import Modal from "../../../components/modals";
  
 function ListView({items,header,TicketForm,ticketSaveFunction, ThreadForm,threadSaveFunction,completeTicket}) {
   const [selected, setSelected] = React.useState({idx:0,data:items?.[0]});
+  const type=localStorage.getItem('type')
 
   const setSelectedItem = (idx,data) => {
     setSelected({idx,data});
@@ -33,7 +34,7 @@ function ListView({items,header,TicketForm,ticketSaveFunction, ThreadForm,thread
         })}
       </List>
       <div className="flex justify-between mt-auto w-full">
-      <Modal Body={TicketForm} title={"Create Ticket"} saveFunction={ticketSaveFunction} buttonName={'create ticket'}/>
+      {type==='TA' && <Modal Body={TicketForm} title={"Create Ticket"} saveFunction={ticketSaveFunction} buttonName={'create ticket'}/>}
       </div>
     </Card>
     <CardView data={selected.data} completeTicket={completeTicket} ThreadForm={ThreadForm} threadSaveFunction={threadSaveFunction}/>

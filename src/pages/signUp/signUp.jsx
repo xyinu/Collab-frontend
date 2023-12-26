@@ -1,6 +1,8 @@
 import { useState } from "react";
 import client from "../../axios"
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import { Button, Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 
 function SignUp(){
@@ -21,19 +23,18 @@ function SignUp(){
     return (
         <div>
         {!isAuthenticated &&
-            <button
-                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                onClick={() => {
-                    handleSubmit()
-                }}
-                >
-                Sign Up
-            </button>
+        <div className="mx-5 my-5 w-full flex items-center flex-col">
+            <Typography color="black" variant="h4">Click on signup to authenticate account</Typography>
+            <Button size="lg" color="green" className="my-5" onClick={() => {handleSubmit()}}>Sign Up</Button>
+        </div>
         }
         {isAuthenticated &&
-            <div>
-                <h1 className="font-bold text-3xl">{response}</h1>
+            <div className="flex items-center flex-col w-full">
+                {
+                    response ?
+                    <Typography color="black" variant="h1">{response}</Typography> :
+                    <Link to="/"><Typography color="black" variant="h1">Already Logged In, Click Me To Return To Home</Typography></Link>
+                }
             </div>
         }
         </div>

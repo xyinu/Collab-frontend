@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import client from "../../axios"
 import NavBar from "../../components/navBar";
-import { Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 
 
 function AddUser(){
     const [inputs, setInputs] = useState({access:'TA'});
+    const [response, setResponse]=useState()
+    const [user, setUser]=useState({TA:[],prof:[]})
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -13,9 +15,24 @@ function AddUser(){
       }
 
     const handleSubmit = async (event) =>{
-        await client.post('createaccess/',inputs)
+        const res = await client.post('createaccess/',inputs)
+        if(res.data?.success){
+            setResponse({color:'green',message:res.data.success})
+        } else{
+            setResponse({color:'red',message:res.data.failure})
+        }
         setInputs({access:'TA'})
     }
+
+    const getUser = async () =>{
+        const res = await client.get('user/')
+        console.log(res.data.TA)
+        setUser(res.data)
+    }
+
+    useEffect(()=>{
+        getUser()
+    },[])
 
     return (
         <div>
@@ -44,16 +61,23 @@ function AddUser(){
                     </div>
                 </div>
             </div>
-                <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => {
-                        handleSubmit()
-                    }}
-                    >
-                    Save Changes
-                </button>
+            <Button size="lg" color="blue-gray" onClick={() => {handleSubmit()}}>Add User</Button>
+            {response && <Typography color={response.color} variant="h6">{response.message}</Typography>}
         </form>
+        <div className="flex flex-row">
+        <div className="px-4">
+        <Typography variant="h6">Profs registered</Typography>
+            {user.prof.map((data,idx)=>{
+                return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email}</Typography>
+            })}
+        </div>
+        <div className="px-4">
+        <Typography variant="h6">TAs registered</Typography>
+            {user.TA.map((data,idx)=>{
+                return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email}</Typography>
+            })}
+        </div>
+        </div>
         </div>
     )
 }

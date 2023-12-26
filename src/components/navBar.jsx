@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import ntu from "../assets/ntu_logo.png"
 import { msalInstance } from "../main"
+import { Typography } from "@material-tailwind/react"
 
 
 function NavBar(){
@@ -8,37 +9,93 @@ function NavBar(){
         await msalInstance.logoutRedirect()
     }
 
+    const type=localStorage.getItem('type')
 
     return(
-<nav className="flex justify-around py-4 bg-gray-200 w-full">
+<nav className="flex justify-around py-4 border-b-2 w-full">
   <div className="flex items-center">
-    {/* <h3 className="text-2xl font-medium text-blue-500">LOGO</h3> */}
     <Link to="/">
-        <img src={ntu} className="object-scale-down h-40 w-58"/>
+        <img src={ntu} className="object-scale-down h-25 w-48 mr-20"/>
     </Link>
   </div>
   {/* <!-- left header section --> */}
-  <div className="items-center hidden space-x-8 lg:flex">
-    <Link to="/">Home</Link>
-    <Link to="/createticket">Ticket</Link>
-    <Link to="/createtask">Task</Link>
-    <Link to="/completed">Completed</Link>
-    <Link to="">FAQ</Link>
+  <div className="items-center hidden space-x-8 lg:flex ml-15">
+    <Typography
+        as="li"
+        variant="h4"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+        <Link to="/" className="hover:text-blue-500">Home</Link>
+    </Typography>
+    <Typography
+        as="li"
+        variant="h4"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+    <Link to="/createticket" className="hover:text-blue-500">Ticket</Link>
+    </Typography>
+    <Typography
+        as="li"
+        variant="h4"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+    <Link to="/createtask" className="hover:text-blue-500">Task</Link>
+    </Typography>
+    <Typography
+        as="li"
+        variant="h4"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+    <Link to="/completed" className="hover:text-blue-500">Completed</Link>
+    </Typography>
+    <Typography
+        as="li"
+        variant="h4"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+    <Link to="" className="hover:text-blue-500">FAQ</Link>
+    </Typography>
   </div>
   {/* <!-- right header section --> */}
   <div className="flex items-center space-x-2">
-    <button className="px-4 py-2 text-gray-200 bg-blue-400 rounded-md">
+      {
+        type==='Prof'&&
+    <button className="px-2 py-1 text-gray-200 bg-blue-400 rounded-md">
+    <Typography
+        variant="h6"
+        className="p-1 font-medium"
+      >
     <Link to="/createclass">
       Create Class
     </Link>
+    </Typography>
     </button>
-    <button className="px-4 py-2 text-gray-200 bg-blue-400 rounded-md">
+      }
+      {
+        type==='Prof'&&
+    <button className="px-2 py-1 text-gray-200 bg-blue-400 rounded-md">
+    <Typography
+        variant="h6"
+        className="p-1 font-medium"
+      >
     <Link to="/adduser">
       Add User
     </Link>
+    </Typography>
     </button>
-    <button className="px-4 py-2 text-gray-200 bg-blue-400 rounded-md" onClick={logout}>
-      Log Out
+      }
+    <button className="px-2 py-1 text-gray-200 bg-blue-400 rounded-md" onClick={logout}>
+    <Typography
+        variant="h6"
+        className="p-1 font-medium"
+      >
+        Log Out
+    </Typography>
     </button>
   </div>
 </nav>

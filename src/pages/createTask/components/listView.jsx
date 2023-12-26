@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
-import { List, ListItem, Card, Typography } from "@material-tailwind/react";
+import { List, ListItem, Card, Typography, Button } from "@material-tailwind/react";
 import CardView from "./cardView";
 import Modal from "../../../components/modals";
  
-function ListView({items,header,leftbutton,rightbutton,Form,saveFunction}) {
+function ListView({items,header,completeTask,rightbutton,Form,saveFunction}) {
   const [selected, setSelected] = React.useState({idx:0,data:items?.[0]});
+  const type=localStorage.getItem('type')
   const setSelectedItem = (idx,data) => {
     setSelected({idx,data});
-}
-useEffect(()=>{
-  setSelected((prev)=>{return {...prev, data:items?.[prev.idx]}})
-},[items])
+  }
+  useEffect(()=>{
+    setSelected((prev)=>{return {...prev, data:items?.[prev.idx]}})
+  },[items])
  
   return (
     <div className="flex flex-row py-3 px-3 items-start flex-grow w-screen">
@@ -21,17 +22,18 @@ useEffect(()=>{
       <List>
         {items?.map((data,idx)=>{
             return(
-                <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
+                <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500 flex justify-between" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
                     <Typography variant="h6">Title: {data.title}</Typography>
+                    {/* <div onClick={}><Modal Body={Form} title={"Create Task"} saveFunction={saveFunction} buttonName={'edit'}/></div> EDITS!!!!*/}
                 </ListItem>
             )
         })}
       </List>
       <div className="flex justify-between mt-auto w-full">
-      <Modal Body={Form} title={"Create Task"} saveFunction={saveFunction} buttonName={'create task'}/>
+      {type==='Prof' && <Modal Body={Form} title={"Create Task"} saveFunction={saveFunction} buttonName={'create task'}/>}
       </div>
     </Card>
-    <CardView data={selected.data} leftbutton={leftbutton}/>
+    <CardView data={selected.data} completeTask={completeTask}/>
     </div>
   );
 }

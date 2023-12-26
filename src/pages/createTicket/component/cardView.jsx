@@ -9,7 +9,8 @@ import Modal from "../../../components/modals";
 import dayjs from 'dayjs'
    
 function CardView({data,completeTicket,ThreadForm,threadSaveFunction}) {
-    
+    const type=localStorage.getItem('type')
+
     return (
         <>
         {data &&
@@ -63,7 +64,7 @@ function CardView({data,completeTicket,ThreadForm,threadSaveFunction}) {
             buttonName={'create thread'}
             />
           </div>
-            <Button size="lg" color="blue-gray" name={data.id} onClick={()=>completeTicket(data.id)}>complete ticket</Button>
+            {type==='Prof'&&<Button size="lg" color="blue-gray" name={data.id} onClick={()=>completeTicket(data.id)}>complete ticket</Button>}
         </div>
         </Card>
         }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import client from "../../axios";
 import NavBar from "../../components/navBar";
+import { Button } from "@material-tailwind/react";
+import ListView from "./components/listView";
 
 function CreateClass(){
     const [file, setFile] = useState();
@@ -16,7 +18,6 @@ function CreateClass(){
 
     async function getClass(){
         const request= await client.get('class/')
-        console.log(request.data)
         setClasses(request.data)
     }
 
@@ -26,24 +27,18 @@ function CreateClass(){
         }
       };
 
-    const handleSubmit = async (event) =>{
-        client.post('createclass/', {file:file,course_name:inputs}, {
+    const handleSubmit = async () =>{
+        await client.post('createclass/', {file:file,course_name:inputs}, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
           })
-        getClass()
+        await getClass()
     }
 
-
-    useEffect(()=>{
-        getClass()
-    },[])
-    
-    return (
-        <div>
-        <NavBar/>
-        <form className="w-6/12 px-4 py-4">
+    const Form=()=>{
+        return(
+            <form className="w-6/12 px-4 py-4">
             <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-prof">
@@ -68,44 +63,19 @@ function CreateClass(){
                 </ul>
                 </section>
             )}
-
-                    <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => {
-                        handleSubmit()
-                    }}
-                    >
-                    Save Changes
-                    </button>
                 </form>
-            <div>
-                {classes.map((data,idx)=>{
-                    return(
-                        <div key={idx}>
-                    <div>course code:{data.code}</div>
-                    <div>course name:{data.name}</div>
-                    {data.group.map((dat,idx)=>{
-                        return(
-                            <div key={idx}>
-                            <div>group type:{dat.type}</div>
-                            <div>group code:{dat.group_code}</div>
-                            {dat.students.map((da, idx)=>{
-                                return(
-                                <div key={idx}>
-                                <div>{idx}:</div>
-                                <div>student name:{da.student.name}</div>
-                                <div>student VMS:{da.student.VMS}</div>
-                                </div>
-                                )
-                            })}
-                            </div>
-                        )
-                    })}
-                        </div>
-                    )
-                })}
-            </div>
+        )
+    }
+
+
+    useEffect(()=>{
+        getClass()
+    },[])
+    
+    return (
+        <div className="flex flex-col h-screen">
+        <NavBar/>
+        <ListView items={classes} header={'Classes'} Form={Form} saveFunction={handleSubmit}/>
         </div>
     )
 }

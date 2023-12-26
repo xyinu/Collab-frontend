@@ -49,7 +49,7 @@ function CreateTask(){
     }
 
     const handleSubmit = async (event) =>{
-       await client.post('createtask/',{...inputs, 'tas':TAInput, file:file},{
+       await client.post('createtask/',{...inputs, tas:TAInput, file:file},{
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -138,7 +138,7 @@ function CreateTask(){
     return(
         <div className="flex flex-col h-screen">
             <NavBar/>
-            <ListView items={tasks} header={'Tasks'} leftbutton={{onClick:completeTask,text:'complete task'}} Form={Form} saveFunction={handleSubmit}/>
+            <ListView items={tasks} header={'Tasks'} completeTask={{onClick:completeTask,text:'complete task'}} Form={Form} saveFunction={handleSubmit}/>
         </div>
     )
 }

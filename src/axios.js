@@ -19,7 +19,9 @@ client.interceptors.request.use(
         } catch(error){
             console.log(error)
             if (error instanceof BrowserAuthError || error instanceof InteractionRequiredAuthError) {
-               return await msalInstance.loginRedirect()
+               await msalInstance.loginRedirect()
+               const res = await client.get('usertype/')
+               localStorage.setItem('type',res.data.type)
             }
         }
     },
