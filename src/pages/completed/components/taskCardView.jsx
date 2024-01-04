@@ -17,6 +17,9 @@ function TaskCardView({data}) {
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
+            Date Created: {dayjs(data.date).format('DD/MM/YYYY, HH:mm:ss')}
+          </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             FROM: {data.prof}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">

@@ -19,6 +19,9 @@ function CardView({data, completeTask, rightbutton}) {
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
+            Date Created: {dayjs(data.date).format('DD/MM/YYYY, HH:mm:ss')}
+          </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             FROM: {data.prof}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -33,7 +36,7 @@ function CardView({data, completeTask, rightbutton}) {
         </CardBody>
         
         <div className="flex justify-between mt-auto">
-            {type==='Prof' && <Button size="lg" color="blue-gray" name={data.id} onClick={completeTask.onClick}>{completeTask.text}</Button>}
+            {type==='TA' && <Button size="lg" color="blue-gray" name={data.id} onClick={completeTask.onClick}>{completeTask.text}</Button>}
             {rightbutton && <Button size="lg" color="blue-gray" name={data.id} onClick={rightbutton.onClick}>{rightbutton.text}</Button>}
         </div>
         </Card>

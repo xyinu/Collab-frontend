@@ -28,10 +28,10 @@ function HomePage() {
         console.log(error);
       }
     };
-    const ticketLabels = ['last reply by you','last reply by others','completed']
+    const ticketLabels = ['last reply by you','last reply by others','approved','rejected']
     const taskLabels = ['in progress','completed']
     const [count,setCount]=useState({
-      ticket:[0,0,0],
+      ticket:[0,0,0,0],
       task:[0,0]
     })
     const getCount= async ()=>{
@@ -40,8 +40,10 @@ function HomePage() {
     }
 
     useEffect(()=>{
-      getCount()
-    },[])
+      if(isAuthenticated){
+        getCount()
+      }
+    },[isAuthenticated])
 
     ChartJS.register(
       CategoryScale,
@@ -72,11 +74,13 @@ function HomePage() {
                           'rgba(255, 99, 132, 0.2)',
                           'rgba(54, 162, 235, 0.2)',
                           'rgba(255, 159, 64, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
                         ],
                         borderColor: [
                           'rgb(255, 99, 132)',
                           'rgb(54, 162, 235)',
                           'rgb(255, 159, 64)',
+                          'rgb(153, 102, 255)',
                         ],
                         borderWidth: 1
                       }]

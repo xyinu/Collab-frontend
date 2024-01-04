@@ -3,7 +3,7 @@ import { List, ListItem, Card, Typography } from "@material-tailwind/react";
 import CardView from "./cardView";
 import Modal from "../../../components/modals";
  
-function ListView({items,header,TicketForm,ticketSaveFunction, ThreadForm,threadSaveFunction,completeTicket}) {
+function ListView({items,header,TicketForm,ticketSaveFunction, ThreadForm,threadSaveFunction,approveTicket,rejectTicket}) {
   const [selected, setSelected] = React.useState({idx:0,data:items?.[0]});
   const type=localStorage.getItem('type')
 
@@ -37,7 +37,7 @@ function ListView({items,header,TicketForm,ticketSaveFunction, ThreadForm,thread
       {type==='TA' && <Modal Body={TicketForm} title={"Create Ticket"} saveFunction={ticketSaveFunction} buttonName={'create ticket'}/>}
       </div>
     </Card>
-    <CardView data={selected.data} completeTicket={completeTicket} ThreadForm={ThreadForm} threadSaveFunction={threadSaveFunction}/>
+    <CardView data={selected.data} approveTicket={approveTicket} rejectTicket={rejectTicket} ThreadForm={ThreadForm} threadSaveFunction={threadSaveFunction}/>
     </div>
   );
 }

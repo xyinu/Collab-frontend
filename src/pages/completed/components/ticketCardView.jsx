@@ -18,6 +18,9 @@ function TicketCardView({data}) {
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
+            Date Created: {dayjs(data.date).format('DD/MM/YYYY, HH:mm:ss')}
+          </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             FROM: {data.TA}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -50,6 +53,9 @@ function TicketCardView({data}) {
               </div>
             )
           })}
+          <Typography variant="h4" color={data.status==='approved'?'green':'red'} className="mb-2">
+            Result: {data.status}
+          </Typography>
         </CardBody>
         </Card>
         }

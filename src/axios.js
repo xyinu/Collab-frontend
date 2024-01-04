@@ -10,6 +10,7 @@ const client = axios.create({
 client.interceptors.request.use(
     async (config) => {
         try{
+            console.log(config.method)
             const token = (await msalInstance.acquireTokenSilent({cacheLookupPolicy:CacheLookupPolicy.Default,scopes: ["openid"]})).idToken
             if (token) {
                 config.headers['Authorization'] = `Bearer ${token}`;
@@ -17,11 +18,12 @@ client.interceptors.request.use(
         
             return config;
         } catch(error){
-            console.log(error)
             if (error instanceof BrowserAuthError || error instanceof InteractionRequiredAuthError) {
-               await msalInstance.loginRedirect()
+               const token = await msalInstance.loginPopup()
                const res = await client.get('usertype/')
                localStorage.setItem('type',res.data.type)
+               config.headers['Authorization'] = `Bearer ${token.idToken}`;
+               return config;
             }
         }
     },

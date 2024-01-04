@@ -8,7 +8,7 @@ import {
 import Modal from "../../../components/modals";
 import dayjs from 'dayjs'
    
-function CardView({data,completeTicket,ThreadForm,threadSaveFunction}) {
+function CardView({data,approveTicket,rejectTicket,ThreadForm,threadSaveFunction}) {
     const type=localStorage.getItem('type')
 
     return (
@@ -19,6 +19,9 @@ function CardView({data,completeTicket,ThreadForm,threadSaveFunction}) {
         <Typography variant="h5">{data.title}</Typography>
         </header>
         <CardBody>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Date Created: {dayjs(data.date).format('DD/MM/YYYY, HH:mm:ss')}
+          </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
             FROM: {data.TA}
           </Typography>
@@ -64,7 +67,14 @@ function CardView({data,completeTicket,ThreadForm,threadSaveFunction}) {
             buttonName={'create thread'}
             />
           </div>
-            {type==='Prof'&&<Button size="lg" color="blue-gray" name={data.id} onClick={()=>completeTicket(data.id)}>complete ticket</Button>}
+            {type==='Prof'&&
+            <div>
+
+              <Button size="lg" color="green" name={data.id} onClick={()=>approveTicket(data.id)}>approve ticket</Button>
+              <Button size="lg" color="red" name={data.id} onClick={()=>rejectTicket(data.id)}>reject ticket</Button>
+
+            </div>  
+            }
         </div>
         </Card>
         }

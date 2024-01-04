@@ -22,15 +22,20 @@ function CreateTicket(){
         getTicket()
     },[])
 
-    async function completeTicket(id){
-        await client.post('completeticket/',{id})
+    async function approveTicket(id){
+        await client.post('approveticket/',{id})
+        getTicket()
+    }
+
+    async function rejectTicket(id){
+        await client.post('rejectticket/',{id})
         getTicket()
     }
 
     return(
         <div className="flex flex-col h-screen">
             <NavBar/>
-            <ListView items={tickets} header={'Tickets'} TicketForm={TicketForm} ticketSaveFunction={handleTicketSubmit} ThreadForm={ThreadForm} threadSaveFunction={handleThreadSubmit} completeTicket={completeTicket}/>
+            <ListView items={tickets} header={'Tickets'} TicketForm={TicketForm} ticketSaveFunction={handleTicketSubmit} ThreadForm={ThreadForm} threadSaveFunction={handleThreadSubmit} approveTicket={approveTicket} rejectTicket={rejectTicket}/>
         </div>
     )
 }
