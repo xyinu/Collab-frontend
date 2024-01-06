@@ -8,6 +8,7 @@ import SignUp from "./pages/signUp/signUp";
 import Completed from "./pages/completed/complete";
 import Reject from "./pages/action/reject";
 import Approve from "./pages/action/approve";
+import FAQ from "./pages/faq/faq";
 
 function App() {
     return (
@@ -21,7 +22,8 @@ function App() {
             <Route path="/adduser" element={<AddUser/>}/>            
             <Route path="/signup" element={<SignUp/>}/>  
             <Route path='/reject' element={<Reject/>}/>       
-            <Route path='/approve' element={<Approve/>}/>          
+            <Route path='/approve' element={<Approve/>}/>   
+            <Route path='/faq' element={<FAQ/>}/>       
         </Routes>
       </BrowserRouter>
     );

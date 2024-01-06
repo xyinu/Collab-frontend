@@ -7,9 +7,13 @@ import {
   } from "@material-tailwind/react";
 import Modal from "../../../components/modals";
 import dayjs from 'dayjs'
+import useRejectCommentForm from "./rejectCommentForm";
+import useApproveCommentForm from "./approveCommentForm";
    
-function CardView({data,approveTicket,rejectTicket,ThreadForm,threadSaveFunction}) {
+function CardView({data,getTicket,ThreadForm,threadSaveFunction}) {
     const type=localStorage.getItem('type')
+    const {rejectTicket,RejectCommentForm}=useRejectCommentForm({getTicket})
+    const {approveTicket,ApproveCommentForm}=useApproveCommentForm({getTicket})
 
     return (
         <>
@@ -68,11 +72,23 @@ function CardView({data,approveTicket,rejectTicket,ThreadForm,threadSaveFunction
             />
           </div>
             {type==='Prof'&&
-            <div>
-
-              <Button size="lg" color="green" name={data.id} onClick={()=>approveTicket(data.id)}>approve ticket</Button>
-              <Button size="lg" color="red" name={data.id} onClick={()=>rejectTicket(data.id)}>reject ticket</Button>
-
+            <div className="flex">
+              <Modal 
+                color="bg-green-500"
+                Body={ApproveCommentForm} 
+                title={"Approve Ticket"} 
+                saveFunction={approveTicket} 
+                id={data.id} 
+                buttonName={'Approve Ticket'}
+              />
+              <Modal 
+                color="bg-red-500"
+                Body={RejectCommentForm} 
+                title={"Reject Ticket"} 
+                saveFunction={rejectTicket} 
+                id={data.id} 
+                buttonName={"Reject Ticket"}
+              />
             </div>  
             }
         </div>

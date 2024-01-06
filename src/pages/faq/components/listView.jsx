@@ -1,22 +1,20 @@
 import React, { useEffect } from "react";
-import { List, ListItem, Card, Typography } from "@material-tailwind/react";
+import { List, ListItem, Card, Typography, Button } from "@material-tailwind/react";
 import CardView from "./cardView";
 import Modal from "../../../components/modals";
  
-function ListView({items,header,TicketForm,ticketSaveFunction, ThreadForm,threadSaveFunction,getTicket}) {
+function ListView({items,header,getFaq,Form,saveFunction}) {
   const [selected, setSelected] = React.useState({idx:0,data:items?.[0]});
   const type=localStorage.getItem('type')
-
   const setSelectedItem = (idx,data) => {
     setSelected({idx,data});
-}
-
+  }
   useEffect(()=>{
     setSelected((prev)=>{return {...prev, data:items?.[prev.idx]}})
   },[items])
  
   return (
-    <div className="flex flex-row py-3 px-3 items-start flex-grow">
+    <div className="flex flex-row py-3 px-3 items-start flex-grow w-screen">
     <Card className="w-96 mr-4 border-2 border-black h-full">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{header}</Typography>
@@ -24,20 +22,17 @@ function ListView({items,header,TicketForm,ticketSaveFunction, ThreadForm,thread
       <List>
         {items?.map((data,idx)=>{
             return(
-                <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
-                    <div>
+                <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500 flex justify-between" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
                     <Typography variant="h6">Title: {data.title}</Typography>
-                    <Typography variant="h6">Last Reply: {data.status}</Typography>
-                    </div>
                 </ListItem>
             )
         })}
       </List>
       <div className="flex justify-between mt-auto w-full">
-      {type==='TA' && <Modal Body={TicketForm} title={"Create Ticket"} saveFunction={ticketSaveFunction} buttonName={'create ticket'}/>}
+      {type==='Prof' && <Modal Body={Form} title={"Create FAQ"} saveFunction={saveFunction} buttonName={'create FAQ'}/>}
       </div>
     </Card>
-    <CardView data={selected.data} getTicket={getTicket} ThreadForm={ThreadForm} threadSaveFunction={threadSaveFunction}/>
+    <CardView data={selected.data} getFaq={getFaq}/>
     </div>
   );
 }

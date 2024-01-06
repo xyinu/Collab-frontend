@@ -58,7 +58,7 @@ function NavBar(){
         color="blue-gray"
         className="p-1 font-medium"
       >
-    <Link to="" className="hover:text-blue-500">FAQ</Link>
+    <Link to="/faq" className="hover:text-blue-500">FAQ</Link>
     </Typography>
   </div>
   {/* <!-- right header section --> */}

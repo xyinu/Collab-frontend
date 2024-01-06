@@ -3,6 +3,7 @@ import client from "../../../axios";
 
 function useThreadForm ({getTicket}){
     const [inputs, setInputs] = useState("");
+    const [formErrors, setFormErrors] = useState({});
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -10,10 +11,26 @@ function useThreadForm ({getTicket}){
     }
 
     const handleThreadSubmit = async ({id}) =>{
-        await client.post('createthread/',{details:inputs,id:id})
-        setInputs("")
-        await getTicket()
-     }
+        const errors = validate(inputs)
+        if(Object.keys(errors).length === 0){
+            await client.post('createthread/',{details:inputs,id:id})
+            setInputs("")
+            await getTicket()
+            setFormErrors({})
+            return true
+        } else {
+            setFormErrors(errors);
+            return false
+        }
+    }
+
+    const validate = (values) => {
+        const errors = {};
+        if (!values) {
+            errors.details = "Detail is required!";
+        } 
+        return errors;
+    };
 
     const ThreadForm = () =>{
         return (
@@ -24,6 +41,7 @@ function useThreadForm ({getTicket}){
                     Detail
                 </label>
                 <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="" onChange={handleChange} name="details" value={inputs|| ""}/>
+                <h6 className="text-red-500 text-lg">{formErrors.details}</h6>
                 </div>
             </div>
         </form>

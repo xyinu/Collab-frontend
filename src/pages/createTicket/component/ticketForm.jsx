@@ -1,26 +1,54 @@
 import { useEffect, useState } from "react";
 import client from "../../../axios";
+import { Typography } from "@material-tailwind/react";
 
 function useTicketForm ({getTicket}){
     const [inputs, setInputs] = useState({category:"Student Request", severity:"High"});
     const [prof, setProf]=useState([])
     const [student, setStudent]=useState([])
     const [file, setFile] = useState(null);
+    const [formErrors, setFormErrors] = useState({});
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({...values, [name]: value}))
     }
+    
+    const validate = (values) => {
+        const errors = {};
+        if (!values.prof) {
+          errors.prof = "Prof is required!";
+        }
+        if (!values.student) {
+          errors.student = "Student is required!";
+        } 
+        if (!values.title) {
+          errors.title = "Title is required";
+        } 
+        if (!values.details) {
+            errors.details = "Detail is required!";
+        } 
+        return errors;
+      };
 
     const handleTicketSubmit = async () =>{
-        await client.post('createticket/',{...inputs, file:file},{
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-        setInputs({category:"Student Request", severity:"High"})
-        getTicket()
+        const errors = validate(inputs)
+        if(Object.keys(errors).length === 0){
+            await client.post('createticket/',{...inputs, file:file},{
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              })
+            setInputs({category:"Student Request", severity:"High"})
+            getTicket()
+            setFormErrors({})
+            return true
+        } else{
+            setFormErrors(errors);
+            return false
+        }
+        
     }
 
     async function getStudent(){
@@ -65,6 +93,7 @@ function useTicketForm ({getTicket}){
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                 </div>
+                    <h6 className="text-red-500 text-lg">{formErrors.prof}</h6>
                 </div>
             </div>
             
@@ -86,6 +115,7 @@ function useTicketForm ({getTicket}){
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                 </div>
+                    <h6 className="text-red-500 text-lg">{formErrors.student}</h6>
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -94,6 +124,7 @@ function useTicketForm ({getTicket}){
                     Title
                 </label>
                 <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-title" type="text" placeholder="" onChange={handleChange} name="title" value={inputs.title || ""}/>
+                <h6 className="text-red-500 text-lg">{formErrors.title}</h6>
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -102,6 +133,7 @@ function useTicketForm ({getTicket}){
                     Detail
                 </label>
                 <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="" onChange={handleChange} name="details" value={inputs.details || ""}/>
+                <h6 className="text-red-500 text-lg">{formErrors.details}</h6>
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-2">

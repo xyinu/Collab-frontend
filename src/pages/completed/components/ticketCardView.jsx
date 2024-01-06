@@ -35,6 +35,9 @@ function TicketCardView({data}) {
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Severity: {data.severity}
           </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Final Comment: {data.final_comment}
+          </Typography>
           <Typography>
            Details: {data.details}
           </Typography>
@@ -53,9 +56,6 @@ function TicketCardView({data}) {
               </div>
             )
           })}
-          <Typography variant="h4" color={data.status==='approved'?'green':'red'} className="mb-2">
-            Result: {data.status}
-          </Typography>
         </CardBody>
         </Card>
         }

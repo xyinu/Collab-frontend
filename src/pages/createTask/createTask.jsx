@@ -13,6 +13,21 @@ function CreateTask(){
     const [TA, setTA]=useState([]);
     const [TAInput, setTAInput]=useState([])
     const [file, setFile] = useState(null);
+    const [formErrors, setFormErrors] = useState({});
+
+    const validate = (values) => {
+        const errors = {};
+        if (TAInput.length===0) {
+          errors.ta = "TA is required!";
+        }
+        if (!values.title) {
+          errors.title = "Title is required";
+        } 
+        if (!values.details) {
+            errors.details = "Detail is required!";
+        } 
+        return errors;
+      };
 
     async function getTA(){
         const request = await client.get('ta/')
@@ -49,14 +64,22 @@ function CreateTask(){
     }
 
     const handleSubmit = async (event) =>{
-       await client.post('createtask/',{...inputs, tas:TAInput, file:file},{
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-       setTAInput([])
-       setInputs({dueDate:new Date()})
-       getTask()
+        const errors = validate(inputs)
+        if(Object.keys(errors).length === 0){
+            await client.post('createtask/',{...inputs, tas:TAInput, file:file},{
+             headers: {
+               "Content-Type": "multipart/form-data",
+             },
+           })
+            setTAInput([])
+            setInputs({dueDate:new Date()})
+            getTask()
+            setFormErrors({})
+            return true
+        } else {
+            setFormErrors(errors);
+            return false
+        }
     }
 
     const handleFileChange = (e) => {
@@ -92,6 +115,7 @@ function CreateTask(){
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                 </div>
+                <h6 className="text-red-500 text-lg">{formErrors.ta}</h6>
                 </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
@@ -99,7 +123,8 @@ function CreateTask(){
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-title">
                         Title
                     </label>
-                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-title" type="text" placeholder="" onChange={handleChange} name="title" value={inputs.title || ""}/>
+                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-title" type="text" placeholder="" onChange={handleChange} name="title" value={inputs.title || ""}/>
+                    <h6 className="text-red-500 text-lg">{formErrors.title}</h6>
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
@@ -108,6 +133,7 @@ function CreateTask(){
                         Detail
                     </label>
                     <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="" onChange={handleChange} name="details" value={inputs.details || ""}/>
+                    <h6 className="text-red-500 text-lg">{formErrors.details}</h6>
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">

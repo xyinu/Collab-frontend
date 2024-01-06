@@ -8,6 +8,8 @@ function AddUser(){
     const [inputs, setInputs] = useState({access:'TA'});
     const [response, setResponse]=useState()
     const [user, setUser]=useState({TA:[],prof:[]})
+    const [formErrors, setFormErrors] = useState({});
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -15,14 +17,33 @@ function AddUser(){
       }
 
     const handleSubmit = async (event) =>{
-        const res = await client.post('createaccess/',inputs)
-        if(res.data?.success){
-            setResponse({color:'green',message:res.data.success})
-        } else{
-            setResponse({color:'red',message:res.data.failure})
+        const errors = validate(inputs)
+        if(Object.keys(errors).length === 0){
+            const res = await client.post('createaccess/',inputs)
+            if(res.data?.success){
+                setResponse({color:'green',message:res.data.success})
+            } else{
+                setResponse({color:'red',message:res.data.failure})
+            }
+            setInputs({access:'TA'})
+            setFormErrors({})
+            return true
+        } else {
+            setFormErrors(errors);
+            return false
         }
-        setInputs({access:'TA'})
     }
+
+    const validate = (values) => {
+        const errors = {};
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (!values.email) {
+            errors.email = "Email is required!";
+        } else if (!regex.test(values.email)) {
+            errors.email = "This is not a valid email format!";
+        }
+        return errors;
+    };
 
     const getUser = async () =>{
         const res = await client.get('user/')
@@ -45,6 +66,7 @@ function AddUser(){
                 </label>
                 <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-prof" type="text" placeholder="" onChange={handleChange} name="email" value={inputs.email || ""}/>
                 <Typography color="red" variant="h6">Make sure to capitalize the first few letters of the email. Eg.TAN123@e.ntu.edu.sg</Typography>
+                <h6 className="text-red-500 text-lg">{formErrors.email}</h6>
                 </div>
             </div>
             <div className="w-full mb-6 md:mb-0 pb-5">
