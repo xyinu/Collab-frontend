@@ -47,7 +47,6 @@ function AddUser(){
 
     const getUser = async () =>{
         const res = await client.get('user/')
-        console.log(res.data.TA)
         setUser(res.data)
     }
 

@@ -25,7 +25,6 @@ function HomePage() {
         const res = await client.get('usertype/')
         localStorage.setItem('type',res.data.type)
       } catch (error) {
-        console.log(error);
       }
     };
     const ticketLabels = ['last reply by you','last reply by others','approved','rejected']

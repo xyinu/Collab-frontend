@@ -6,7 +6,6 @@ import { Typography } from "@material-tailwind/react";
 function Approve(){
     let [searchParams, setSearchParams] = useSearchParams();
     const [response, setResponse]=useState('')
-    console.log(searchParams.get('id'))
     useEffect(async ()=>{
         const res = await client.post('approveticket/',{id:searchParams.get('id')})
         setResponse(res.data.response)

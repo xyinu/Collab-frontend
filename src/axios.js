@@ -5,11 +5,10 @@ import { msalInstance } from "./main";
 const client = axios.create({
   baseURL: import.meta.env.VITE_ENVIRONMENT ==='Production'? "https://test-fyp2.azurewebsites.net" : "http://localhost:8000",
 });
-console.log(import.meta.env.VITE_ENVIRONMENT)
+
 client.interceptors.request.use(
     async (config) => {
         try{
-            console.log(config.method)
             const token = (await msalInstance.acquireTokenSilent({cacheLookupPolicy:CacheLookupPolicy.Default,scopes: ["openid"]})).idToken
             if (token) {
                 config.headers['Authorization'] = `Bearer ${token}`;

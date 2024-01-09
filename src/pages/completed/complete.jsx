@@ -21,7 +21,6 @@ function Completed(){
 
     async function getTask(){
         const request= await client.get('completedtask/')
-        console.log(request.data)
         setTasks(request.data)
     }
 

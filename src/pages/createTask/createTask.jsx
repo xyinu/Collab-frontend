@@ -54,7 +54,6 @@ function CreateTask(){
 
     async function getTask(){
         const request= await client.get('task/')
-        console.log(request.data)
         setTasks(request.data)
     }
 

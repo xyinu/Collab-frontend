@@ -6,7 +6,6 @@ import { Typography } from "@material-tailwind/react";
 function Reject(){
     let [searchParams, setSearchParams] = useSearchParams();
     const [response, setResponse]=useState('')
-    console.log(searchParams.get('id'))
     useEffect(async ()=>{
         const res = await client.post('rejectticket/',{id:searchParams.get('id')})
         setResponse(res.data.response)

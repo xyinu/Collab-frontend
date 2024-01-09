@@ -29,7 +29,6 @@ function FAQ(){
 
     async function getFaq(){
         const request= await client.get('faq/')
-        console.log(request.data)
         setTasks(request.data)
     }
 
