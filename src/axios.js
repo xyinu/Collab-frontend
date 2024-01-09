@@ -2,9 +2,8 @@ import axios from "axios";
 import { CacheLookupPolicy, BrowserAuthError, InteractionRequiredAuthError } from "@azure/msal-browser";
 import { msalInstance } from "./main";
 
-
 const client = axios.create({
-  baseURL: "http://localhost:8000" ,
+  baseURL: import.meta.env.VITE_ENVIRONMENT ==='Production'? "https://test-fyp2.azurewebsites.net" : "http://localhost:8000",
 });
 
 client.interceptors.request.use(
