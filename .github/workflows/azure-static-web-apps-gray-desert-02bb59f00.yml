@@ -10,7 +10,7 @@ on:
       - main
 
 env: # Add environment variables here
-  VITE_ENVIRONTMENT: "Production"
+  VITE_ENVIRONMENT: "Production"
 
 jobs:
   build_and_deploy_job:
