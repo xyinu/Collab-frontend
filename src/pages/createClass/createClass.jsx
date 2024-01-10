@@ -94,7 +94,7 @@ function CreateClass(){
       if(isAuthenticated){
         getClass()
       }
-    },[])
+    },[isAuthenticated])
     
     return (
         <div className="flex flex-col h-screen">

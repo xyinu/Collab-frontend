@@ -13,18 +13,19 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Link } from "react-router-dom";
 
 
 function HomePage() {
     const { instance } = useMsal();
     const isAuthenticated = useIsAuthenticated();
+    const [type,setType] = useState(localStorage.getItem('type'))
     // The next 3 lines are optional. This is how you configure MSAL to take advantage of the router's navigate functions when MSAL redirects between pages in your app
     const handleLogin = async () => {
       try {
         await instance.loginPopup();
         const res = await client.get('usertype/')
         localStorage.setItem('type',res.data.type)
+        setType(res.data.type)
       } catch (error) {
       }
     };
@@ -54,7 +55,7 @@ function HomePage() {
   
     return (
       <> 
-        {isAuthenticated && 
+        {(isAuthenticated && type) && 
             <div>
                 <NavBar/>
                 <div className="flex flex-row px-4 pt-6">

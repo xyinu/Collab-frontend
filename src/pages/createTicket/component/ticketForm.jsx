@@ -74,7 +74,7 @@ function useTicketForm ({getTicket}){
             getStudent()
             getProf()
         }
-    },[])
+    },[isAuthenticated])
 
     const TicketForm = () =>{
         return (

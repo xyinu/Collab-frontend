@@ -23,7 +23,7 @@ function CreateTicket(){
         if(isAuthenticated){
             getTicket()
         }
-    },[])
+    },[isAuthenticated])
 
 
     return(

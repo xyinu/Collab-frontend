@@ -18,6 +18,7 @@ function NavBar(){
     useEffect(()=>{
       const retrieve=localStorage.getItem('type')
       if(!retrieve){
+        console.log(retrieve)
         if(isAuthenticated){
           logout()
         } else {

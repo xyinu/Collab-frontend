@@ -12,6 +12,7 @@ function useRejectCommentForm ({getTicket}){
     async function rejectTicket({id}){
         await client.post('rejectticket/',{comment:inputs,id})
         getTicket()
+        return true
     }
 
     const RejectCommentForm = () =>{

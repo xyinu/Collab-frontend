@@ -18,7 +18,7 @@ function CardView({data,getTicket,ThreadForm,threadSaveFunction}) {
     return (
         <>
         {data &&
-        <Card className="border-2 border-black h-full flex-grow">
+        <Card className="border-2 border-black flex-grow">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{data.title}</Typography>
         </header>
@@ -41,28 +41,30 @@ function CardView({data,getTicket,ThreadForm,threadSaveFunction}) {
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Severity: {data.severity}
           </Typography>
-          <Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
            Details: {data.details}
           </Typography>
-          <Typography variant="h6" color="blue-gray" className="mb-2 mt-3">
-            Thread:
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Comments:
           </Typography>
+          <div className="flex flex-col">
           {data.thread.map((dat,idx)=>{
             return(
-              <div key={idx}>
+              <div key={idx} className={`${dat.type===type && 'place-self-end bg-blue-200'} w-1/5 border-2 border-transparent mb-1 inline-block rounded-2xl bg-gray-200 px-2 py-1 text-pretty break-words`}>
               <Typography variant="h6" color="blue-gray">
-                From:{dat.by} Date:{dayjs(dat.date).format('DD/MM/YYYY, HH:mm:ss')}
+                Date:{dayjs(dat.date).format('DD/MM/YYYY, HH:mm:ss')}
               </Typography>
-              <Typography>
-                message: {dat.details}
+              <Typography variant="h6" color="blue-gray">
+                {dat.details}
               </Typography>
               </div>
             )
           })}
+          </div>
         </CardBody>
         
         <div className="flex justify-between mt-auto">
-          <div className="h-full">
+          <div>
             <Modal 
             Body={ThreadForm} 
             title={"Create thread"} 

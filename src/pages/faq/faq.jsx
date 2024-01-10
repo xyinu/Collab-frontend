@@ -52,7 +52,7 @@ function FAQ(){
         if(isAuthenticated){
             getFaq()
         }
-    },[])
+    },[isAuthenticated])
 
     function Form(){
         return(

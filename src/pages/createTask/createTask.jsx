@@ -94,7 +94,7 @@ function CreateTask(){
             getTask()
             getTA()
         }
-    },[])
+    },[isAuthenticated])
 
     function Form(){
         return(

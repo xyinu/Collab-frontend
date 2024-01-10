@@ -56,7 +56,7 @@ function AddUser(){
         if(isAuthenticated){
             getUser()
         }
-    },[])
+    },[isAuthenticated])
 
     return (
         <div>

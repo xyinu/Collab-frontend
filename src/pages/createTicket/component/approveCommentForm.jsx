@@ -12,6 +12,7 @@ function useApproveCommentForm ({getTicket}){
     async function approveTicket({id}){
         await client.post('approveticket/',{comment:inputs,id})
         getTicket()
+        return true
     }
 
     const ApproveCommentForm = () =>{

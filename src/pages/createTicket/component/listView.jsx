@@ -34,7 +34,7 @@ function ListView({items,header,TicketForm,ticketSaveFunction, ThreadForm,thread
         })}
       </List>
       <div className="flex justify-between mt-auto w-full">
-      {type==='TA' && <Modal Body={TicketForm} title={"Create Ticket"} saveFunction={ticketSaveFunction} buttonName={'create ticket'}/>}
+      <Modal Body={TicketForm} title={"Create Ticket"} saveFunction={ticketSaveFunction} buttonName={'create ticket'}/>
       </div>
     </Card>
     <CardView data={selected.data} getTicket={getTicket} ThreadForm={ThreadForm} threadSaveFunction={threadSaveFunction}/>
