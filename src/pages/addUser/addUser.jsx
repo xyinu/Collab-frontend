@@ -89,14 +89,21 @@ function AddUser(){
         <div className="px-4">
         <Typography variant="h6">Profs registered</Typography>
             {user.prof.map((data,idx)=>{
-                return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email}</Typography>
+                if(data.name){
+                    return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email}</Typography>
+                } else {
+                    return <Typography key={idx}>{idx+1}{')'} Pending Sign Up - {data.email}</Typography>
+                }
             })}
         </div>
         <div className="px-4">
         <Typography variant="h6">TAs registered</Typography>
             {user.TA.map((data,idx)=>{
-                return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email}</Typography>
-            })}
+                if(data.name){
+                    return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email}</Typography>
+                } else {
+                    return <Typography key={idx}>{idx+1}{')'} Pending Sign Up - {data.email}</Typography>
+                }            })}
         </div>
         </div>
         </div>
