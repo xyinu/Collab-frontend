@@ -32,8 +32,8 @@ function SignUp(){
             <div className="flex items-center flex-col w-full">
                 {
                     response ?
-                    <Typography color="black" variant="h1">{response}</Typography> :
-                    <Link to="/"><Typography color="black" variant="h1">Already Logged In, Click Me To Return To Home</Typography></Link>
+                    <Link to="/"><Typography color="black" variant="h1">{response} Click Me To Return Home</Typography></Link> :
+                    <Link to="/"><Typography color="black" variant="h1">Already Signed Up, Click Me To Return To Home</Typography></Link>
                 }
             </div>
         }

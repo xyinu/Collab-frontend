@@ -140,19 +140,7 @@ function HomePage() {
                     <img className="object-scale-down h-10 w-10 absolute left-2" src={microsoft_icon}/>
                     <h2>Login with Microsoft</h2>
                 </button>
-                <button className="px-2 py-1 text-gray-200 bg-blue-400 rounded-md mt-3">
-                <Typography
-        variant="h6"
-        className="p-1 font-medium"
-      >
-    <Link to="/signup">
-      Sign up
-    </Link> 
-    </Typography>
-    {/* remove */}
-                </button>
             </div>
-            
         }
       </>
     );
