@@ -1,17 +1,35 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import ntu from "../assets/ntu_logo.png"
 import { msalInstance } from "../main"
 import { Typography } from "@material-tailwind/react"
+import { useEffect, useState } from "react"
+import { useIsAuthenticated } from "@azure/msal-react"
 
 
 function NavBar(){
+    const isAuthenticated = useIsAuthenticated();
+    const navigate = useNavigate();
     async function logout(){
+        localStorage.removeItem('type')
         await msalInstance.logoutRedirect()
     }
+    const [type,setType] = useState('')
 
-    const type=localStorage.getItem('type')
+    useEffect(()=>{
+      const retrieve=localStorage.getItem('type')
+      if(!retrieve){
+        if(isAuthenticated){
+          logout()
+        } else {
+          navigate('/')
+        }
+      } else{
+        setType(retrieve)
+      }
+    },[])
 
     return(
+      type && 
 <nav className="flex justify-around py-4 border-b-2 w-full">
   <div className="flex items-center">
     <Link to="/">

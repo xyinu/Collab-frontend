@@ -3,6 +3,7 @@ import react, { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import NavBar from "../../components/navBar";
 import ListView from "./components/listView";
+import { useIsAuthenticated } from "@azure/msal-react";
 
 function FAQ(){
 
@@ -45,9 +46,12 @@ function FAQ(){
             return false
         }
     }
+    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        getFaq()
+        if(isAuthenticated){
+            getFaq()
+        }
     },[])
 
     function Form(){

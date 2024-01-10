@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NavBar from "../../components/navBar";
 import ListView from "./components/listView";
+import { useIsAuthenticated } from "@azure/msal-react";
 
 function CreateTask(){
 
@@ -86,10 +87,13 @@ function CreateTask(){
           setFile(e.target.files[0]);
         }
       };
+    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        getTask()
-        getTA()
+        if(isAuthenticated){
+            getTask()
+            getTA()
+        }
     },[])
 
     function Form(){

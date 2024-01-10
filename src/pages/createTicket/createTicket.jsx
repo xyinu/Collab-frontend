@@ -5,6 +5,7 @@ import NavBar from "../../components/navBar";
 import useTicketForm from "./component/ticketForm";
 import useThreadForm from "./component/threadForm";
 import ListView from "./component/listView";
+import { useIsAuthenticated } from "@azure/msal-react";
 
 function CreateTicket(){
     const [tickets, setTickets] = useState([]);
@@ -16,9 +17,12 @@ function CreateTicket(){
 
     const {TicketForm, handleTicketSubmit} = useTicketForm({getTicket})
     const {ThreadForm, handleThreadSubmit} = useThreadForm({getTicket})
-    
+    const isAuthenticated = useIsAuthenticated();
+
     useEffect(()=>{
-        getTicket()
+        if(isAuthenticated){
+            getTicket()
+        }
     },[])
 
 

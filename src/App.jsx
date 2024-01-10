@@ -4,7 +4,6 @@ import CreateTicket from "./pages/createTicket/createTicket";
 import CreateTask from "./pages/createTask/createTask";
 import CreateClass from "./pages/createClass/createClass";
 import AddUser from "./pages/addUser/addUser";
-import SignUp from "./pages/signUp/signUp";
 import Completed from "./pages/completed/complete";
 import Reject from "./pages/action/reject";
 import Approve from "./pages/action/approve";
@@ -20,7 +19,6 @@ function App() {
             <Route path="/completed" element={<Completed/>}/>
             <Route path="/createclass" element={<CreateClass/>}/>
             <Route path="/adduser" element={<AddUser/>}/>            
-            <Route path="/signup" element={<SignUp/>}/>  
             <Route path='/reject' element={<Reject/>}/>       
             <Route path='/approve' element={<Approve/>}/>   
             <Route path='/faq' element={<FAQ/>}/>       

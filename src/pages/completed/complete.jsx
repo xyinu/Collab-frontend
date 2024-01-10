@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import NavBar from "../../components/navBar";
 import TaskListView from "./components/taskListView";
 import TicketListView from "./components/ticketListView";
+import { useIsAuthenticated } from "@azure/msal-react";
 
 function Completed(){
 
@@ -23,10 +24,13 @@ function Completed(){
         const request= await client.get('completedtask/')
         setTasks(request.data)
     }
+    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        getTask()
-        getTicket()
+        if(isAuthenticated){
+            getTask()
+            getTicket()
+        }
     },[])
 
     return(

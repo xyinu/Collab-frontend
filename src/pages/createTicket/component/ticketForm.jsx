@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import client from "../../../axios";
 import { Typography } from "@material-tailwind/react";
+import { useIsAuthenticated } from "@azure/msal-react";
 
 function useTicketForm ({getTicket}){
     const [inputs, setInputs] = useState({category:"Student Request", severity:"High"});
@@ -66,10 +67,13 @@ function useTicketForm ({getTicket}){
           setFile(e.target.files[0]);
         }
       };
+    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        getStudent()
-        getProf()
+        if(isAuthenticated){
+            getStudent()
+            getProf()
+        }
     },[])
 
     const TicketForm = () =>{

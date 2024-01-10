@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import client from "../../axios"
 import NavBar from "../../components/navBar";
 import { Button, Typography } from "@material-tailwind/react";
+import { useIsAuthenticated } from "@azure/msal-react";
 
 
 function AddUser(){
@@ -49,9 +50,12 @@ function AddUser(){
         const res = await client.get('user/')
         setUser(res.data)
     }
+    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        getUser()
+        if(isAuthenticated){
+            getUser()
+        }
     },[])
 
     return (

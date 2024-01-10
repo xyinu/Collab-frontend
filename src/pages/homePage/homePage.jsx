@@ -49,9 +49,7 @@ function HomePage() {
       CategoryScale,
       LinearScale,
       BarElement,
-      // Title,
       Tooltip,
-      // Legend
     );
   
     return (

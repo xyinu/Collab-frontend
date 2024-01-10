@@ -3,6 +3,7 @@ import client from "../../axios";
 import NavBar from "../../components/navBar";
 import { Button } from "@material-tailwind/react";
 import ListView from "./components/listView";
+import { useIsAuthenticated } from "@azure/msal-react";
 
 function CreateClass(){
     const [file, setFile] = useState();
@@ -87,10 +88,12 @@ function CreateClass(){
                 </form>
         )
     }
-
+    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
+      if(isAuthenticated){
         getClass()
+      }
     },[])
     
     return (
