@@ -38,7 +38,7 @@ function Completed(){
             <NavBar/>
             {
                 screen ?
-                <TicketListView items={tickets} header={'Ticket'} setChange={setChange}/>
+                <TicketListView items={tickets} header={'Ticket'} setChange={setChange} getTicket={getTicket}/>
                 :
                 <TaskListView items={tasks} header={'Tasks'} setChange={setChange}/>
             }

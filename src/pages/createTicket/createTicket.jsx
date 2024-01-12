@@ -1,9 +1,7 @@
 import client from "../../axios";
-import Modal from "../../components/modals";
 import { useEffect, useState } from "react";
 import NavBar from "../../components/navBar";
 import useTicketForm from "./component/ticketForm";
-import useThreadForm from "./component/threadForm";
 import ListView from "./component/listView";
 import { useIsAuthenticated } from "@azure/msal-react";
 
@@ -16,7 +14,6 @@ function CreateTicket(){
     }
 
     const {TicketForm, handleTicketSubmit} = useTicketForm({getTicket})
-    const {ThreadForm, handleThreadSubmit} = useThreadForm({getTicket})
     const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
@@ -29,7 +26,7 @@ function CreateTicket(){
     return(
         <div className="flex flex-col h-screen">
             <NavBar/>
-            <ListView items={tickets} header={'Tickets'} TicketForm={TicketForm} ticketSaveFunction={handleTicketSubmit} ThreadForm={ThreadForm} threadSaveFunction={handleThreadSubmit} getTicket={getTicket}/>
+            <ListView items={tickets} header={'Tickets'} TicketForm={TicketForm} ticketSaveFunction={handleTicketSubmit} getTicket={getTicket}/>
         </div>
     )
 }

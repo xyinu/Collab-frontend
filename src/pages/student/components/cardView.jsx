@@ -6,19 +6,19 @@ import {
   } from "@material-tailwind/react";
 import dayjs from 'dayjs'
 import Modal from "../../../components/modals";
-import useEditForm from "./editFaqForm";
+import useEditForm from "./editStudentForm";
 
    
 function CardView({data,getFaq}) {
   const type=localStorage.getItem('type')
   const {EditForm, handleEditSubmit} = useEditForm({getFaq,title:data?.title,details:data?.details})
-
+  
     return (
         <>
         {data &&
         <Card className="border-2 border-black h-full flex-grow">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
-        <Typography variant="h5">{data.title}</Typography>
+        <Typography variant="h5">{data.name}</Typography>
         <div className="absolute right-3 text-black">
             {type==='Prof' &&             
             <Modal 
@@ -32,11 +32,34 @@ function CardView({data,getFaq}) {
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
-            Last Edit: {dayjs(data.date).format('DD/MM/YYYY')}
+            VMS: {data.VMS}
           </Typography>
-          <Typography>
-           Details: {data.details}
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Program and Year: {data.program_year}
           </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Student Type: {data.student_type}
+          </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Course Type: {data.course_type}
+          </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Nationality: {data.nationality}
+          </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Groups Registered: 
+          </Typography>
+          {
+            data.group_course.map((data, idx)=>{
+              return(
+                <div key={idx}>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            {idx+1+')'} Courses Code: {data.group.course_code} Group Code: {data.group.code} Type: {data.group.type}
+          </Typography>
+                </div>
+              )
+            })
+          }
         </CardBody>
         </Card>
         }

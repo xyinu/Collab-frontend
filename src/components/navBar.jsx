@@ -77,6 +77,14 @@ function NavBar(){
         color="blue-gray"
         className="p-1 font-medium"
       >
+    <Link to="/student" className="hover:text-blue-500">Students</Link>
+    </Typography>
+    <Typography
+        as="li"
+        variant="h4"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
     <Link to="/faq" className="hover:text-blue-500">FAQ</Link>
     </Typography>
   </div>
@@ -90,7 +98,7 @@ function NavBar(){
         className="p-1 font-medium"
       >
     <Link to="/createclass">
-      Create Class
+      Class
     </Link>
     </Typography>
     </button>

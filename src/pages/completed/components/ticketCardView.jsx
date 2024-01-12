@@ -6,9 +6,11 @@ import {
   } from "@material-tailwind/react";
 import Modal from "../../../components/modals";
 import dayjs from 'dayjs'
+import useCommentForm from "./commentForm";
    
-function TicketCardView({data}) {
+function TicketCardView({data,getTicket}) {
     const type=localStorage.getItem('type')
+    const {commentTicket,CommentForm}=useCommentForm({getTicket})
 
     return (
         <>
@@ -16,6 +18,17 @@ function TicketCardView({data}) {
         <Card className="border-2 border-black flex-grow">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{data.title}</Typography>
+        {type==='Prof'&&
+        <div className="absolute right-3 text-black">
+          <Modal 
+            Body={CommentForm} 
+            title={"Reopen"} 
+            saveFunction={commentTicket} 
+            id={data.id} 
+            buttonName={'Reopen'}
+          />
+        </div>
+        }
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -36,7 +49,7 @@ function TicketCardView({data}) {
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Severity: {data.severity}
           </Typography>
-          <Typography variant="h6" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue" className="mb-2">
             Final Comment: {data.final_comment}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -48,7 +61,7 @@ function TicketCardView({data}) {
           <div className="flex flex-col">
           {data.thread.map((dat,idx)=>{
             return(
-              <div key={idx} className={`${dat.type===type && 'self-end bg-blue-200'} w-1/5 border-2 border-transparent mb-1 inline-block rounded-2xl bg-gray-200 px-2 py-1 text-pretty break-words`}>
+              <div key={idx} className={`${dat.type===type ? 'place-self-end bg-blue-200' : 'bg-gray-200'} w-1/4 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words`}>
               <Typography variant="h6" color="blue-gray">
                 Date:{dayjs(dat.date).format('DD/MM/YYYY, HH:mm:ss')}
               </Typography>

@@ -8,6 +8,7 @@ import Completed from "./pages/completed/complete";
 import Reject from "./pages/action/reject";
 import Approve from "./pages/action/approve";
 import FAQ from "./pages/faq/faq";
+import StudentPage from "./pages/student/student";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
             <Route path='/reject' element={<Reject/>}/>       
             <Route path='/approve' element={<Approve/>}/>   
             <Route path='/faq' element={<FAQ/>}/>       
+            <Route path='/student' element={<StudentPage/>}/>       
         </Routes>
       </BrowserRouter>
     );

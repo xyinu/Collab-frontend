@@ -1,19 +1,29 @@
 import {
     Card,
     CardBody,
-    CardFooter,
     Typography,
     Button,
   } from "@material-tailwind/react";
 import Modal from "../../../components/modals";
 import dayjs from 'dayjs'
-import useRejectCommentForm from "./rejectCommentForm";
-import useApproveCommentForm from "./approveCommentForm";
+import useCommentForm from "./commentForm";
+import { useState } from "react";
+import client from "../../../axios";
    
-function CardView({data,getTicket,ThreadForm,threadSaveFunction}) {
+function CardView({data,getTicket}) {
     const type=localStorage.getItem('type')
-    const {rejectTicket,RejectCommentForm}=useRejectCommentForm({getTicket})
-    const {approveTicket,ApproveCommentForm}=useApproveCommentForm({getTicket})
+    const {commentTicket,CommentForm}=useCommentForm({getTicket})
+    const [inputs,setInputs] = useState('')
+    const handleThreadSubmit = async () =>{
+      await client.post('createthread/',{details:inputs,id:data.id})
+      setInputs("")
+      await getTicket()
+      return true
+    }
+    const handleChange = (e) =>{
+      setInputs(e.target.value)
+    } 
+
 
     return (
         <>
@@ -21,6 +31,17 @@ function CardView({data,getTicket,ThreadForm,threadSaveFunction}) {
         <Card className="border-2 border-black flex-grow">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{data.title}</Typography>
+        {type==='Prof'&&
+        <div className="absolute right-3 text-black">
+          <Modal 
+            Body={CommentForm} 
+            title={"Close"} 
+            saveFunction={commentTicket} 
+            id={data.id} 
+            buttonName={'Close'}
+          />
+        </div>
+        }
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -50,7 +71,7 @@ function CardView({data,getTicket,ThreadForm,threadSaveFunction}) {
           <div className="flex flex-col">
           {data.thread.map((dat,idx)=>{
             return(
-              <div key={idx} className={`${dat.type===type && 'place-self-end bg-blue-200'} w-1/5 border-2 border-transparent mb-1 inline-block rounded-2xl bg-gray-200 px-2 py-1 text-pretty break-words`}>
+              <div key={idx} className={`${dat.type===type ? 'place-self-end bg-blue-200' : 'bg-gray-200'} w-1/4 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words`}>
               <Typography variant="h6" color="blue-gray">
                 Date:{dayjs(dat.date).format('DD/MM/YYYY, HH:mm:ss')}
               </Typography>
@@ -64,35 +85,8 @@ function CardView({data,getTicket,ThreadForm,threadSaveFunction}) {
         </CardBody>
         
         <div className="flex justify-between mt-auto">
-          <div>
-            <Modal 
-            Body={ThreadForm} 
-            title={"Create thread"} 
-            saveFunction={threadSaveFunction} 
-            id={data.id} 
-            buttonName={'create thread'}
-            />
-          </div>
-            {type==='Prof'&&
-            <div className="flex">
-              <Modal 
-                color="bg-green-500"
-                Body={ApproveCommentForm} 
-                title={"Approve Ticket"} 
-                saveFunction={approveTicket} 
-                id={data.id} 
-                buttonName={'Approve Ticket'}
-              />
-              <Modal 
-                color="bg-red-500"
-                Body={RejectCommentForm} 
-                title={"Reject Ticket"} 
-                saveFunction={rejectTicket} 
-                id={data.id} 
-                buttonName={"Reject Ticket"}
-              />
-            </div>  
-            }
+        <textarea className="appearance-none rounded-lg block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="Comment Here" name="details" onChange={handleChange} value={inputs}/>
+        <Button size="lg" color="blue-gray" className="w-30" onClick={handleThreadSubmit}>Comment</Button>
         </div>
         </Card>
         }
