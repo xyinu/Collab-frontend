@@ -28,6 +28,7 @@ function AddUser(){
             }
             setInputs({access:'TA'})
             setFormErrors({})
+            getUser()
             return true
         } else {
             setFormErrors(errors);

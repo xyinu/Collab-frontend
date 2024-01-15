@@ -31,7 +31,6 @@ function StudentPage(){
     async function getStudent(){
         const request= await client.get('student/')
         setStudents(request.data)
-        console.log(request.data)
     }
 
     const handleSubmit = async (event) =>{

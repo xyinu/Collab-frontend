@@ -99,7 +99,7 @@ function CreateClass(){
     return (
         <div className="flex flex-col h-screen">
         <NavBar/>
-        <ListView items={classes} header={'Classes'} Form={Form} saveFunction={handleSubmit}/>
+        <ListView items={classes} header={'Classes'} Form={Form} saveFunction={handleSubmit} getClass={getClass}/>
         </div>
     )
 }

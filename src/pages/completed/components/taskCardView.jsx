@@ -8,6 +8,8 @@ import dayjs from 'dayjs'
 
    
 function TaskCardView({data}) {
+  const type=localStorage.getItem('type')
+
     return (
         <>
         {data &&
@@ -17,7 +19,7 @@ function TaskCardView({data}) {
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
-            Date Created: {dayjs(data.date).format('DD/MM/YYYY, HH:mm:ss')}
+            Date Created: {dayjs(data.date).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
             FROM: {data.prof}
@@ -26,11 +28,28 @@ function TaskCardView({data}) {
             TO: {data.TA}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
-            Due Date: {dayjs(data.dueDate).format('DD/MM/YYYY, HH:mm:ss')}
+            Due Date: {dayjs(data.dueDate).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
-          <Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
            Details: {data.details}
           </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Thread:
+          </Typography>
+          <div className="flex flex-col">
+          {data.thread.map((dat,idx)=>{
+            return(
+              <div key={idx} className={`${dat.type===type ? 'place-self-end bg-blue-200' : 'bg-gray-200'} w-1/3 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words`}>
+              <Typography variant="h6" color="blue-gray">
+                Date:{dayjs(dat.date).format('YYYY-MM-DD, HH:mm:ss')}
+              </Typography>
+              <Typography variant="h6" color="blue-gray">
+                {dat.details}
+              </Typography>
+              </div>
+            )
+          })}
+          </div>
         </CardBody>
         </Card>
         }

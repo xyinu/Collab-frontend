@@ -19,7 +19,7 @@ function CardView({data,getFaq}) {
         <Card className="border-2 border-black h-full flex-grow">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{data.name}</Typography>
-        <div className="absolute right-3 text-black">
+        {/* <div className="absolute right-3 text-black">
             {type==='Prof' &&             
             <Modal 
             Body={EditForm} 
@@ -28,7 +28,7 @@ function CardView({data,getFaq}) {
             id={data.id} 
             buttonName={'edit FAQ'}
             />}
-        </div>
+        </div> */}
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -54,7 +54,21 @@ function CardView({data,getFaq}) {
               return(
                 <div key={idx}>
           <Typography variant="h6" color="blue-gray" className="mb-2">
-            {idx+1+')'} Courses Code: {data.group.course_code} Group Code: {data.group.code} Type: {data.group.type}
+            {idx+1+')'} Courses Code: {data.group.course_code}, Group Code: {data.group.code}, Type: {data.group.type}
+          </Typography>
+                </div>
+              )
+            })
+          }
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Tickets Created: 
+          </Typography>
+          {
+            data.tickets.map((data, idx)=>{
+              return(
+                <div key={idx}>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            {idx+1+')'} Title: {data.title}, Category:{data.category}, {data.status==='completed'?'Status: Closed': 'Last Reply: '+data.status}
           </Typography>
                 </div>
               )

@@ -4,7 +4,7 @@ import CardView from "./cardView";
 import Modal from "../../../components/modals";
 import search from "../../../assets/search.webp"
  
-function ListView({items,header,getFaq,Form,saveFunction}) {
+function ListView({items,header,getFaq,Form,saveFunction, categories}) {
   const [selected, setSelected] = useState({idx:0,data:items?.[0]});
   const type=localStorage.getItem('type')
   const [store, setStore] = useState()
@@ -20,14 +20,12 @@ function ListView({items,header,getFaq,Form,saveFunction}) {
     if (!e.target.value) return setStore(items)
     const val = e.target.value.toLowerCase()
     const resultsArray = items.filter(item => 
-      item.VMS.toLowerCase().includes(val) || 
-      item.name.toLowerCase().includes(val) ||
-      
-      item.nationality.toLowerCase().includes(val) ||
-      item.student_type.toLowerCase().includes(val) ||
-      item.course_type.toLowerCase().includes(val) ||
-      item.group_course.map((data)=>data.group.code.toLowerCase().includes(val) || data.group.type.toLowerCase().includes(val) || data.group.course_code.toLowerCase().includes(val)).includes(true)
+      item.category.toLowerCase().includes(val) || 
+      item.title.toLowerCase().includes(val) ||
+      item.details.toLowerCase().includes(val) ||
+      item.date.toLowerCase().includes(val) 
       )
+      
     setStore(resultsArray)
 }
  
@@ -56,13 +54,13 @@ function ListView({items,header,getFaq,Form,saveFunction}) {
         {store?.map((data,idx)=>{
             return(
                 <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500 flex justify-between" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
-                    <Typography variant="h6">Title: {data.title}</Typography>
+                    <Typography variant="h6">{data.title}</Typography>
                 </ListItem>
             )
         })}
       </List>
     </Card>
-    <CardView data={selected.data} getFaq={getFaq}/>
+    <CardView data={selected.data} getFaq={getFaq} categories={categories}/>
     </div>
   );
 }

@@ -1,14 +1,37 @@
 import { useEffect, useState } from "react";
 import client from "../../../axios";
-import { Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { useIsAuthenticated } from "@azure/msal-react";
 
 function useTicketForm ({getTicket}){
-    const [inputs, setInputs] = useState({category:"Student Request", severity:"High"});
+    const [inputs, setInputs] = useState({category:"Student Issue", severity:"High"});
     const [prof, setProf]=useState([])
     const [student, setStudent]=useState([])
     const [file, setFile] = useState(null);
     const [formErrors, setFormErrors] = useState({});
+    const [categories, setCategories]=useState([])
+    const [categoryInput, setCategoryInput]=useState("")
+    const [show, setShow]=useState(false)
+
+    const handleShow =(e) =>{
+        setShow(prev=>!prev)
+    }
+
+    async function getCategories(){
+        const request = await client.get('ticketcategory/')
+        setCategories(request.data)
+    }
+
+    const handleCategorySubmit = async() =>{
+        await client.post('ticketcategory/',{category:categoryInput})
+        setShow(prev=>!prev)
+        setCategoryInput("")
+        await getCategories()
+    }
+
+    const handleCategoryChange = (e) => {
+        setCategoryInput(e.target.value)
+    }
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -41,7 +64,7 @@ function useTicketForm ({getTicket}){
                   "Content-Type": "multipart/form-data",
                 },
               })
-            setInputs({category:"Student Request", severity:"High"})
+            setInputs({category:"Student Issue", severity:"High"})
             getTicket()
             setFormErrors({})
             return true
@@ -73,6 +96,7 @@ function useTicketForm ({getTicket}){
         if(isAuthenticated){
             getStudent()
             getProf()
+            getCategories()
         }
     },[isAuthenticated])
 
@@ -147,9 +171,11 @@ function useTicketForm ({getTicket}){
                 </label>
                 <div className="relative">
                     <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" onChange={handleChange} name="category" value={inputs.category || ""}>
-                    <option>Student Request</option>
-                    <option>Student Issue</option>
-                    <option>Student Question</option>
+                    {
+                        categories.map((data,idx)=>{
+                            return <option key={idx}>{data.category}</option>
+                        })
+                    }
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -171,6 +197,31 @@ function useTicketForm ({getTicket}){
                     </div>
                 </div>
                 </div>
+            </div>
+            <div>
+            {show && 
+            <div className="flex flex-row">
+            <input className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded mr-2 w-1/2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="" onChange={handleCategoryChange} name="categories" value={categoryInput}/>
+            <Button size="sm" color="green" onClick={handleCategorySubmit}>
+            <p>
+                Submit Category
+            </p>
+            </Button>
+            <Button size="sm" color="green" className="ml-2"onClick={handleShow}>
+            <p>
+                x
+            </p>
+            </Button>
+            </div>
+            }
+            {
+                !show &&
+                <Button size="sm" color="green" onClick={handleShow}>
+                <p>
+                    Add Category
+                </p>
+                </Button>
+            }
             </div>
             <div className="flex flex-wrap -mx-3 mt-6">
             <div className="w-full px-3">

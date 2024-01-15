@@ -4,15 +4,14 @@ import CardView from "./cardView";
 import Modal from "../../../components/modals";
 import search from "../../../assets/search.webp"
 
-function ListView({items,header, Form, saveFunction}) {
-  const [selected, setSelected] = useState({idx:0,data:items?.[0]?.group?.[0]});
+function ListView({items,header, Form, saveFunction, getClass}) {
+  const [selected, setSelected] = useState({idx:0,data:items?.[0]?.group?.[0],code:items?.[0]?.code});
   const [store, setStore] = useState()
-
-  const setSelectedItem = (idx,data) => {
-    setSelected({idx,data});
+  const setSelectedItem = (idx,data,code) => {
+    setSelected({idx,data,code});
   }
   useEffect(()=>{
-    setSelected((prev)=>{return {...prev, data:items?.[0]?.group?.[prev.idx]}})
+    setSelected((prev)=>{return {...prev, data:items?.[0]?.group?.[prev.idx],code:items?.[0]?.code}})
     setStore(items)
   },[items])
   const handleSearchChange = (e) => {
@@ -55,7 +54,7 @@ function ListView({items,header, Form, saveFunction}) {
         {store?.map((data)=>{
             return data.group.map((dat,idx)=>{
               return(
-                <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500 flex justify-between flex-col" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,dat)}>
+                <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500 flex justify-between flex-col" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,dat,data.code)}>
                     <Typography variant="h6">Course Code: {data.code}</Typography>
                     <Typography variant="h6">Group Code: {dat.group_code}</Typography>
                     <Typography variant="h6">Group Type: {dat.type}</Typography>
@@ -65,7 +64,7 @@ function ListView({items,header, Form, saveFunction}) {
         })}
       </List>
       </Card>
-    <CardView data={selected.data}/>
+    <CardView data={selected.data} code={selected.code} getClass={getClass}/>
     </div>
   );
 }

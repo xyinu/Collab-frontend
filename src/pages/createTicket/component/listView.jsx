@@ -27,6 +27,7 @@ function ListView({items,header,TicketForm,ticketSaveFunction,getTicket}) {
       item.student.name.toLowerCase().includes(val) ||
       item.student.VMS.toLowerCase().includes(val) ||
       item.title.toLowerCase().includes(val) ||
+      item.date.toLowerCase().includes(val) ||
       item.thread.map((data)=>data.details.toLowerCase().includes(val)).includes(true)
       )
     setStore(resultsArray)

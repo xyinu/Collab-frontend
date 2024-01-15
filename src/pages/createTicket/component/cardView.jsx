@@ -14,11 +14,18 @@ function CardView({data,getTicket}) {
     const type=localStorage.getItem('type')
     const {commentTicket,CommentForm}=useCommentForm({getTicket})
     const [inputs,setInputs] = useState('')
+    const [show, setShow]=useState(false)
     const handleThreadSubmit = async () =>{
-      await client.post('createthread/',{details:inputs,id:data.id})
-      setInputs("")
-      await getTicket()
-      return true
+      if(inputs){
+        await client.post('createthread/',{details:inputs,id:data.id})
+        setInputs("")
+        setShow(false)
+        await getTicket()
+        return true
+      } else{
+        setShow(true)
+        return false
+      }
     }
     const handleChange = (e) =>{
       setInputs(e.target.value)
@@ -45,7 +52,7 @@ function CardView({data,getTicket}) {
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
-            Date Created: {dayjs(data.date).format('DD/MM/YYYY, HH:mm:ss')}
+            Date Created: {dayjs(data.date).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
             FROM: {data.TA}
@@ -71,9 +78,9 @@ function CardView({data,getTicket}) {
           <div className="flex flex-col">
           {data.thread.map((dat,idx)=>{
             return(
-              <div key={idx} className={`${dat.type===type ? 'place-self-end bg-blue-200' : 'bg-gray-200'} w-1/4 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words`}>
+              <div key={idx} className={`${dat.type===type ? 'place-self-end bg-blue-200' : 'bg-gray-200'} w-1/3 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words`}>
               <Typography variant="h6" color="blue-gray">
-                Date:{dayjs(dat.date).format('DD/MM/YYYY, HH:mm:ss')}
+                Date:{dayjs(dat.date).format('YYYY-MM-DD, HH:mm:ss')}
               </Typography>
               <Typography variant="h6" color="blue-gray">
                 {dat.details}
@@ -88,6 +95,9 @@ function CardView({data,getTicket}) {
         <textarea className="appearance-none rounded-lg block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="Comment Here" name="details" onChange={handleChange} value={inputs}/>
         <Button size="lg" color="blue-gray" className="w-30" onClick={handleThreadSubmit}>Comment</Button>
         </div>
+        {
+        show&&<Typography color="red" variant="h6" className="ml-2">Input Needed</Typography>
+        }
         </Card>
         }
         {!data && 

@@ -144,7 +144,7 @@ function CreateTask(){
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-detail">
                         Due Date
                     </label>
-                    <DatePicker selected={inputs.dueDate} name="dueDate" onChange={handleDateChange} showTimeSelect showIcon dateFormat="dd/M/yyyy h:mm aa" className="bg-gray-200 border-gray-200 rounded py-3 px-4 mb-3"/>
+                    <DatePicker selected={inputs.dueDate} name="dueDate" onChange={handleDateChange} showTimeSelect showIcon dateFormat="yyyy-M-dd, h:mm aa" className="bg-gray-200 border-gray-200 rounded py-3 px-4 mb-3"/>
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mt-6">
