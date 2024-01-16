@@ -5,11 +5,28 @@ import {
     Button,
   } from "@material-tailwind/react";
 import dayjs from 'dayjs'
-
+import client from "../../../axios";
+import mime from 'mime';
    
 function TaskCardView({data}) {
   const type=localStorage.getItem('type')
+  const download = async() =>{
+    const res=await client.post('downloadtaskfile/',{id:data.id},{responseType: 'blob'})
+    const type = mime.getType(data.file_name)
+    const url = window.URL.createObjectURL(new Blob([res.data], {
+      type: type,
+    }));
 
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = data.file_name;
+  
+    document.body.appendChild(link);
+  
+    link.click();
+  
+    link.parentNode.removeChild(link);
+  }
     return (
         <>
         {data &&
@@ -30,6 +47,15 @@ function TaskCardView({data}) {
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Due Date: {dayjs(data.dueDate).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
+          {
+            data.file_name &&
+            <div className="flex items-center content-center mb-2">
+          <Typography variant="h6" color="blue-gray" className="mr-2">
+            File uploaded: {data.file_name}
+          </Typography>
+          <Button size="sm" color="blue-gray" className="w-30" onClick={download}>Download</Button>
+            </div>
+          }
           <Typography variant="h6" color="blue-gray" className="mb-2">
            Details: {data.details}
           </Typography>

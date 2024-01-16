@@ -7,11 +7,29 @@ import {
 import Modal from "../../../components/modals";
 import dayjs from 'dayjs'
 import useCommentForm from "./commentForm";
-   
+import client from "../../../axios";
+import mime from 'mime';
+
 function TicketCardView({data,getTicket}) {
     const type=localStorage.getItem('type')
     const {commentTicket,CommentForm}=useCommentForm({getTicket})
+    const download = async() =>{
+      const res=await client.post('downloadfile/',{id:data.id},{responseType: 'blob'})
+      const type = mime.getType(data.file_name)
+      const url = window.URL.createObjectURL(new Blob([res.data], {
+        type: type,
+      }));
 
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = data.file_name;
+    
+      document.body.appendChild(link);
+    
+      link.click();
+    
+      link.parentNode.removeChild(link);
+    }
     return (
         <>
         {data &&
@@ -49,6 +67,15 @@ function TicketCardView({data,getTicket}) {
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Severity: {data.severity}
           </Typography>
+          {
+            data.file_name &&
+            <div className="flex items-center content-center mb-2">
+          <Typography variant="h6" color="blue-gray" className="mr-2">
+            File uploaded: {data.file_name}
+          </Typography>
+          <Button size="sm" color="blue-gray" className="w-30" onClick={download}>Download</Button>
+            </div>
+          }
           <Typography variant="h6" color="blue" className="mb-2">
             Final Comment: {data.final_comment}
           </Typography>
