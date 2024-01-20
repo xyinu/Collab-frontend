@@ -28,6 +28,7 @@ function TicketListView({items,header,setChange, getTicket}) {
       item.title.toLowerCase().includes(val) ||
       item.final_comment.toLowerCase().includes(val) ||
       item.date.toLowerCase().includes(val) ||
+      item?.file_name?.includes(val)||
       item.thread.map((data)=>data.details.toLowerCase().includes(val)).includes(true)
       )
     setStore(resultsArray)

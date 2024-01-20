@@ -27,6 +27,7 @@ function ListView({items,header,completeTask,Form,saveFunction,getTask}) {
       item.title.toLowerCase().includes(val) ||
       item.date.toLowerCase().includes(val) ||
       item.dueDate.toLowerCase().includes(val) ||
+      item?.file_name?.includes(val)||
       item.thread.map((data)=>data.details.toLowerCase().includes(val)).includes(true)
       )
     setStore(resultsArray)

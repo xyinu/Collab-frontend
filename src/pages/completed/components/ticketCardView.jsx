@@ -36,7 +36,6 @@ function TicketCardView({data,getTicket}) {
         <Card className="border-2 border-black flex-grow">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{data.title}</Typography>
-        {type==='Prof'&&
         <div className="absolute right-3 text-black">
           <Modal 
             Body={CommentForm} 
@@ -46,7 +45,6 @@ function TicketCardView({data,getTicket}) {
             buttonName={'Reopen'}
           />
         </div>
-        }
         </header>
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-2">
