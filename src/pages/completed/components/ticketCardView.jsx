@@ -46,7 +46,7 @@ function TicketCardView({data,getTicket}) {
           />
         </div>
         </header>
-        <CardBody>
+        <div className="overflow-auto h-[calc(100vh-210px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Date Created: {dayjs(data.date).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
@@ -97,7 +97,7 @@ function TicketCardView({data,getTicket}) {
             )
           })}
           </div>
-        </CardBody>
+        </div>
         </Card>
         }
         {!data && 

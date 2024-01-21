@@ -59,7 +59,7 @@ function CardView({data, completeTask,getTask}) {
         </div>
         }
         </header>
-        <CardBody>
+        <div className="overflow-auto h-[calc(100vh-260px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Date Created: {dayjs(data.date).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
@@ -101,7 +101,7 @@ function CardView({data, completeTask,getTask}) {
             )
           })}
           </div>
-        </CardBody>
+        </div>
         
         {/* <div className="flex justify-between mt-auto">
             {type==='TA' && <Button size="lg" color="blue-gray" name={data.id} onClick={completeTask.onClick}>{completeTask.text}</Button>}

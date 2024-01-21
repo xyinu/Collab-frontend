@@ -50,7 +50,7 @@ function ListView({items,header, Form, saveFunction, getClass}) {
         <img src={search} height={30} width={30}/>
         </div>
       </form>
-      <List>
+      <ul className="overflow-auto h-[calc(100vh-250px)] p-1 scrollbar">
         {store?.map((data)=>{
             return data.group.map((dat,idx)=>{
               return(
@@ -62,7 +62,7 @@ function ListView({items,header, Form, saveFunction, getClass}) {
             )
             })
         })}
-      </List>
+      </ul>
       </Card>
     <CardView data={selected.data} code={selected.code} getClass={getClass}/>
     </div>

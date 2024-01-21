@@ -42,17 +42,17 @@ function CardView({data,getFaq,categories}) {
             }
         </div>
         </header>
-        <CardBody>
+        <div className="overflow-auto h-[calc(100vh-210px)] p-3 scrollbar">
+          <Typography variant="h6" color="blue-gray" className="mb-2">
+            Last Edited: {dayjs(data.date).format('YYYY-MM-DD')}
+          </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Category: {data.category}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
            Answer: {data.details}
           </Typography>
-          <Typography variant="h6" color="blue-gray" className="mb-2">
-            Last Edit: {dayjs(data.date).format('YYYY-MM-DD')}
-          </Typography>
-        </CardBody>
+        </div>
         </Card>
         }
         {!data && 

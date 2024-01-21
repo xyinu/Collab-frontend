@@ -68,7 +68,7 @@ function CardView({data,getTicket}) {
         </div>
         }
         </header>
-        <CardBody>
+        <div className="overflow-auto h-[calc(100vh-260px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Date Created: {dayjs(data.date).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
@@ -116,7 +116,7 @@ function CardView({data,getTicket}) {
             )
           })}
           </div>
-        </CardBody>
+        </div>
         
         <div className="flex justify-between mt-auto">
         <textarea className="appearance-none rounded-lg block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="Comment Here" name="details" onChange={handleChange} value={inputs}/>

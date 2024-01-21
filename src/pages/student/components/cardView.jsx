@@ -30,7 +30,7 @@ function CardView({data,getFaq}) {
             />}
         </div> */}
         </header>
-        <CardBody>
+        <div className="overflow-auto h-[calc(100vh-210px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             VMS: {data.VMS}
           </Typography>
@@ -74,7 +74,7 @@ function CardView({data,getFaq}) {
               )
             })
           }
-        </CardBody>
+        </div>
         </Card>
         }
         {!data && 

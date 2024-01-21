@@ -33,7 +33,7 @@ function ListView({items,header,completeTask,Form,saveFunction,getTask}) {
     setStore(resultsArray)
   }
   return (
-    <div className="flex flex-row py-3 px-3 items-start flex-grow w-screen">
+    <div className="flex flex-row py-3 px-3 items-start flex-grow">
     <Card className="w-96 mr-4 border-2 border-black h-full">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{header}</Typography>
@@ -53,7 +53,7 @@ function ListView({items,header,completeTask,Form,saveFunction,getTask}) {
         <img src={search} height={30} width={30}/>
         </div>
       </form>
-      <List>
+      <ul className="overflow-auto h-[calc(100vh-250px)] p-1 scrollbar">
         {store?.map((data,idx)=>{
             return(
                 <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500 flex justify-between" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
@@ -61,7 +61,7 @@ function ListView({items,header,completeTask,Form,saveFunction,getTask}) {
                 </ListItem>
             )
         })}
-      </List>
+      </ul>
     </Card>
     <CardView data={selected.data} completeTask={completeTask} getTask={getTask}/>
     </div>

@@ -42,13 +42,13 @@ function CardView({data,getClass,code}) {
             }
         </div>
         </header>
-        <CardBody>
+        <div className="overflow-auto h-[calc(100vh-210px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Students: {data?.students?.map((dat,idx)=>{
               return <Typography key={idx}>{idx+1}{')'} {dat?.student.name}, {dat?.student.VMS} </Typography>
             })}
           </Typography>
-        </CardBody>
+        </div>
         </Card>
         }
         {!data && 

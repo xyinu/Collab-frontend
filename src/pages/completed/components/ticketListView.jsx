@@ -56,7 +56,7 @@ function TicketListView({items,header,setChange, getTicket}) {
         <img src={search} height={30} width={30}/>
         </div>
       </form>
-      <List>
+      <ul className="overflow-auto h-[calc(100vh-250px)] p-1 scrollbar">
         {store?.map((data,idx)=>{
             return(
                 <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
@@ -66,7 +66,7 @@ function TicketListView({items,header,setChange, getTicket}) {
                 </ListItem>
             )
         })}
-      </List>
+      </ul>
     </Card>
     <TicketCardView data={selected.data} getTicket={getTicket}/>
     </div>

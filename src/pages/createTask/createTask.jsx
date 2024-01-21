@@ -165,7 +165,7 @@ function CreateTask(){
 
 
     return(
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen max-w-screen">
             <NavBar/>
             <ListView items={tasks} header={'Tasks'} completeTask={{onClick:completeTask,text:'complete task'}} Form={Form} saveFunction={handleSubmit} getTask={getTask}/>
         </div>

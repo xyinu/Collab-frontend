@@ -34,7 +34,7 @@ function TaskCardView({data}) {
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{data.title}</Typography>
         </header>
-        <CardBody>
+        <div className="overflow-auto h-[calc(100vh-210px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Date Created: {dayjs(data.date).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
@@ -76,7 +76,7 @@ function TaskCardView({data}) {
             )
           })}
           </div>
-        </CardBody>
+        </div>
         </Card>
         }
         {!data && 
