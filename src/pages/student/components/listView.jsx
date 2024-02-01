@@ -53,7 +53,7 @@ function ListView({items,header,getFaq}) {
         {store?.map((data,idx)=>{
             return(
                 <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500 flex justify-between" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
-                    <Typography variant="h6">Name: {data.name}</Typography>
+                    <Typography variant="h6">{data.name}</Typography>
                 </ListItem>
             )
         })}

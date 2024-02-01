@@ -12,7 +12,7 @@ import client from "../../../axios";
    
 function CardView({data,getFaq,categories}) {
   const type=localStorage.getItem('type')
-  const {EditForm, handleEditSubmit} = useEditForm({getFaq,title:data?.title,details:data?.details,categories})
+  const {EditForm, handleEditSubmit} = useEditForm({getFaq,title:data?.title,details:data?.details,categories,category:data?.category})
   const deleteFaq =async(id)=>{
     await client.post('deletefaq/',{id})
     getFaq()
@@ -42,14 +42,14 @@ function CardView({data,getFaq,categories}) {
             }
         </div>
         </header>
-        <div className="overflow-auto h-[calc(100vh-210px)] p-3 scrollbar">
+        <div className="overflow-auto h-[calc(100vh-205px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Last Edited: {dayjs(data.date).format('YYYY-MM-DD')}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Category: {data.category}
           </Typography>
-          <Typography variant="h6" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2 whitespace-pre-line">
            Answer: {data.details}
           </Typography>
         </div>

@@ -30,7 +30,7 @@ function CardView({data,getFaq}) {
             />}
         </div> */}
         </header>
-        <div className="overflow-auto h-[calc(100vh-210px)] p-3 scrollbar">
+        <div className="overflow-auto h-[calc(100vh-205px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             VMS: {data.VMS}
           </Typography>
@@ -68,7 +68,7 @@ function CardView({data,getFaq}) {
               return(
                 <div key={idx}>
           <Typography variant="h6" color="blue-gray" className="mb-2">
-            {idx+1+')'} Title: {data.title}, Category:{data.category}, {data.status==='completed'?'Status: Closed': 'Last Reply: '+data.status}
+            {idx+1+')'} Title: {data.title}, Category: {data.category}, {data.status==='completed'?'Closed': 'Last Reply: '+data.status}
           </Typography>
                 </div>
               )

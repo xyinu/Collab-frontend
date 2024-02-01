@@ -18,7 +18,7 @@ function App() {
             <Route path="/createticket" element={<CreateTicket/>}/>
             <Route path="/createtask" element={<CreateTask/>}/>
             <Route path="/completed" element={<Completed/>}/>
-            <Route path="/createclass" element={<CreateClass/>}/>
+            <Route path="/class" element={<CreateClass/>}/>
             <Route path="/adduser" element={<AddUser/>}/>            
             <Route path='/reject' element={<Reject/>}/>       
             <Route path='/approve' element={<Approve/>}/>   

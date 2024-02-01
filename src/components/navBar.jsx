@@ -33,11 +33,11 @@ function NavBar(){
 <nav className="flex justify-around py-4 border-b-2 w-full">
   <div className="flex items-center">
     <Link to="/">
-        <img src={ntu} className="object-scale-down h-25 w-48 mr-20"/>
+        <img src={ntu} className="object-scale-down h-25 w-48"/>
     </Link>
   </div>
   {/* <!-- left header section --> */}
-  <div className="items-center hidden space-x-8 lg:flex ml-15">
+  <div className="items-center hidden space-x-8 lg:flex">
     <Typography
         as="li"
         variant="h4"
@@ -78,6 +78,17 @@ function NavBar(){
       >
     <Link to="/student" className="hover:text-blue-500">Students</Link>
     </Typography>
+    {
+        type==='Prof'&&
+    <Typography
+        as="li"
+        variant="h4"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+    <Link to="/class" className="hover:text-blue-500">Class</Link>
+    </Typography>
+    }
     <Typography
         as="li"
         variant="h4"
@@ -89,19 +100,6 @@ function NavBar(){
   </div>
   {/* <!-- right header section --> */}
   <div className="flex items-center space-x-2">
-      {
-        type==='Prof'&&
-    <button className="px-2 py-1 text-gray-200 bg-blue-400 rounded-md">
-    <Typography
-        variant="h6"
-        className="p-1 font-medium"
-      >
-    <Link to="/createclass">
-      Class
-    </Link>
-    </Typography>
-    </button>
-      }
       {
         type==='Prof'&&
     <button className="px-2 py-1 text-gray-200 bg-blue-400 rounded-md">

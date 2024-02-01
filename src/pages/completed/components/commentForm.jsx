@@ -1,8 +1,9 @@
 import { useState } from "react";
 import client from "../../../axios";
 
-function useCommentForm ({getTicket}){
+function useCommentForm ({getItem,item}){
     const [inputs, setInputs] = useState("");
+    const [formErrors, setFormError] = useState('');
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -10,10 +11,20 @@ function useCommentForm ({getTicket}){
     }
 
     async function commentTicket({id}){
-        await client.post('reopenticket/',{comment:inputs,id})
-        getTicket()
-        setInputs("")
-        return true
+        if(inputs){
+            if(item==='ticket'){
+                await client.post('reopenticket/',{comment:inputs,id})
+            }else{
+                await client.post('reopentask/',{comment:inputs,id})
+            }
+            getItem()
+            setInputs("")
+            setFormError('')
+            return true
+        }else{
+            setFormError('Comment Is Required!')
+            return false
+        }
     }
 
     const CommentForm = () =>{
@@ -25,6 +36,7 @@ function useCommentForm ({getTicket}){
                     Reopen Comment
                 </label>
                 <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="" onChange={handleChange} name="comment" value={inputs|| ""}/>
+                <h6 className="text-red-500 text-lg">{formErrors}</h6>
                 </div>
             </div>
         </form>

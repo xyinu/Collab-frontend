@@ -8,9 +8,12 @@ import dayjs from 'dayjs'
 import { useState } from "react";
 import client from "../../../axios";
 import mime from 'mime';
+import Modal from "../../../components/modals";
+import useCommentForm from "./commentForm";
 
    
-function CardView({data, completeTask,getTask}) {
+function CardView({data, getTask}) {
+  const {commentTask,CommentForm}=useCommentForm({getTask})
   const type=localStorage.getItem('type')
   const [inputs,setInputs] = useState('')
   const [show, setShow]=useState(false)
@@ -53,11 +56,15 @@ function CardView({data, completeTask,getTask}) {
         <Card className="border-2 border-black h-full flex-grow">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{data.title}</Typography>
-        {type==='TA' && 
         <div className="absolute right-3 text-black">
-        <Button size="lg" color="pink" name={data.id} onClick={completeTask.onClick}>{completeTask.text}</Button>
-        </div>
-        }
+          <Modal 
+            Body={CommentForm} 
+            title={"Close Task"} 
+            saveFunction={commentTask} 
+            id={data.id} 
+            buttonName={'Close Task'}
+          />
+        </div>    
         </header>
         <div className="overflow-auto h-[calc(100vh-260px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -81,7 +88,7 @@ function CardView({data, completeTask,getTask}) {
           <Button size="sm" color="blue-gray" className="w-30" onClick={download}>Download</Button>
             </div>
           }
-          <Typography variant="h6" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2 whitespace-pre-line">
            Details: {data.details}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -94,7 +101,7 @@ function CardView({data, completeTask,getTask}) {
               <Typography variant="h6" color="blue-gray">
                 Date:{dayjs(dat.date).format('YYYY-MM-DD, HH:mm:ss')}
               </Typography>
-              <Typography variant="h6" color="blue-gray">
+              <Typography variant="h6" color="blue-gray" className="whitespace-pre-line">
                 {dat.details}
               </Typography>
               </div>
@@ -109,7 +116,7 @@ function CardView({data, completeTask,getTask}) {
         </div> */}
         <div className="flex justify-between mt-auto">
         <textarea className="appearance-none rounded-lg block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="Comment Here" name="details" onChange={handleChange} value={inputs}/>
-        <Button size="lg" color="blue-gray" className="w-30" onClick={handleThreadSubmit}>Comment</Button>
+        <Button size="lg" color="blue-gray" className="w-30" onClick={handleThreadSubmit}>Send</Button>
         </div>
         {
         show&&<Typography color="red" variant="h6" className="ml-2">Input Needed</Typography>

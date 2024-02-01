@@ -7,9 +7,12 @@ import {
 import dayjs from 'dayjs'
 import client from "../../../axios";
 import mime from 'mime';
+import Modal from "../../../components/modals";
+import useCommentForm from "./commentForm";
    
-function TaskCardView({data}) {
+function TaskCardView({data,getTask}) {
   const type=localStorage.getItem('type')
+  const {commentTicket,CommentForm}=useCommentForm({getItem:getTask,item:'task'})
   const download = async() =>{
     const res=await client.post('downloadtaskfile/',{id:data.id},{responseType: 'blob'})
     const type = mime.getType(data.file_name)
@@ -33,8 +36,17 @@ function TaskCardView({data}) {
         <Card className="border-2 border-black h-full flex-grow">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{data.title}</Typography>
+        <div className="absolute right-3 text-black">
+          <Modal 
+            Body={CommentForm} 
+            title={"Reopen Task"} 
+            saveFunction={commentTicket} 
+            id={data.id} 
+            buttonName={'Reopen Task'}
+          />
+        </div>
         </header>
-        <div className="overflow-auto h-[calc(100vh-210px)] p-3 scrollbar">
+        <div className="overflow-auto h-[calc(100vh-205px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Date Created: {dayjs(data.date).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
@@ -56,7 +68,7 @@ function TaskCardView({data}) {
           <Button size="sm" color="blue-gray" className="w-30" onClick={download}>Download</Button>
             </div>
           }
-          <Typography variant="h6" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2 whitespace-pre-line">
            Details: {data.details}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -69,7 +81,7 @@ function TaskCardView({data}) {
               <Typography variant="h6" color="blue-gray">
                 Date:{dayjs(dat.date).format('YYYY-MM-DD, HH:mm:ss')}
               </Typography>
-              <Typography variant="h6" color="blue-gray">
+              <Typography variant="h6" color="blue-gray" className="whitespace-pre-line">
                 {dat.details}
               </Typography>
               </div>

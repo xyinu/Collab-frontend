@@ -58,11 +58,6 @@ function CreateTask(){
         setTasks(request.data)
     }
 
-    async function completeTask(e){
-        await client.post('completetask/',{id:e.target.name})
-        getTask()
-    }
-
     const handleSubmit = async (event) =>{
         const errors = validate(inputs)
         if(Object.keys(errors).length === 0){
@@ -167,7 +162,7 @@ function CreateTask(){
     return(
         <div className="flex flex-col h-screen max-w-screen">
             <NavBar/>
-            <ListView items={tasks} header={'Tasks'} completeTask={{onClick:completeTask,text:'complete task'}} Form={Form} saveFunction={handleSubmit} getTask={getTask}/>
+            <ListView items={tasks} header={'Tasks'} Form={Form} saveFunction={handleSubmit} getTask={getTask}/>
         </div>
     )
 }

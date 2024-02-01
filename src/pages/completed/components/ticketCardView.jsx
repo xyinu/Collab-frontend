@@ -12,7 +12,7 @@ import mime from 'mime';
 
 function TicketCardView({data,getTicket}) {
     const type=localStorage.getItem('type')
-    const {commentTicket,CommentForm}=useCommentForm({getTicket})
+    const {commentTicket,CommentForm}=useCommentForm({getItem:getTicket,item:'ticket'})
     const download = async() =>{
       const res=await client.post('downloadfile/',{id:data.id},{responseType: 'blob'})
       const type = mime.getType(data.file_name)
@@ -39,14 +39,14 @@ function TicketCardView({data,getTicket}) {
         <div className="absolute right-3 text-black">
           <Modal 
             Body={CommentForm} 
-            title={"Reopen"} 
+            title={"Reopen Ticket"} 
             saveFunction={commentTicket} 
             id={data.id} 
-            buttonName={'Reopen'}
+            buttonName={'Reopen Ticket'}
           />
         </div>
         </header>
-        <div className="overflow-auto h-[calc(100vh-210px)] p-3 scrollbar">
+        <div className="overflow-auto h-[calc(100vh-205px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Date Created: {dayjs(data.date).format('YYYY-MM-DD, HH:mm:ss')}
           </Typography>
@@ -74,10 +74,7 @@ function TicketCardView({data,getTicket}) {
           <Button size="sm" color="blue-gray" className="w-30" onClick={download}>Download</Button>
             </div>
           }
-          <Typography variant="h6" color="blue" className="mb-2">
-            Final Comment: {data.final_comment}
-          </Typography>
-          <Typography variant="h6" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2 whitespace-pre-line">
            Details: {data.details}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -90,7 +87,7 @@ function TicketCardView({data,getTicket}) {
               <Typography variant="h6" color="blue-gray">
                 Date:{dayjs(dat.date).format('YYYY-MM-DD, HH:mm:ss')}
               </Typography>
-              <Typography variant="h6" color="blue-gray">
+              <Typography variant="h6" color="blue-gray" className="whitespace-pre-line">
                 {dat.details}
               </Typography>
               </div>

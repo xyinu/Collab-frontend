@@ -60,10 +60,10 @@ function CardView({data,getTicket}) {
         <div className="absolute right-3 text-black">
           <Modal 
             Body={CommentForm} 
-            title={"Close"} 
+            title={"Close Ticket"} 
             saveFunction={commentTicket} 
             id={data.id} 
-            buttonName={'Close'}
+            buttonName={'Close Ticket'}
           />
         </div>
         }
@@ -96,7 +96,7 @@ function CardView({data,getTicket}) {
           <Button size="sm" color="blue-gray" className="w-30" onClick={download}>Download</Button>
             </div>
           }
-          <Typography variant="h6" color="blue-gray" className="mb-2">
+          <Typography variant="h6" color="blue-gray" className="mb-2 whitespace-pre-line">
            Details: {data.details}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -109,7 +109,7 @@ function CardView({data,getTicket}) {
               <Typography variant="h6" color="blue-gray">
                 Date:{dayjs(dat.date).format('YYYY-MM-DD, HH:mm:ss')}
               </Typography>
-              <Typography variant="h6" color="blue-gray">
+              <Typography variant="h6" color="blue-gray" className="whitespace-pre-line">
                 {dat.details}
               </Typography>
               </div>
@@ -120,7 +120,7 @@ function CardView({data,getTicket}) {
         
         <div className="flex justify-between mt-auto">
         <textarea className="appearance-none rounded-lg block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="Comment Here" name="details" onChange={handleChange} value={inputs}/>
-        <Button size="lg" color="blue-gray" className="w-30" onClick={handleThreadSubmit}>Comment</Button>
+        <Button size="lg" color="blue-gray" className="w-30" onClick={handleThreadSubmit}>Send</Button>
         </div>
         {
         show&&<Typography color="red" variant="h6" className="ml-2">Input Needed</Typography>

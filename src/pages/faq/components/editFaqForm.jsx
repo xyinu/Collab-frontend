@@ -1,20 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import client from "../../../axios";
 
-function useEditForm ({getFaq,details,title,categories}){
-    const [inputs, setInputs] = useState("");
+function useEditForm ({getFaq,details,title,categories,category}){
+    const [inputs, setInputs] = useState({});
+    const [formErrors, setFormErrors] = useState({});
 
+    useEffect(()=>{
+        setInputs({details,title,category})
+    },[details,title,category])
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({...values, [name]: value}))  
     }
+    const validate = (values) => {
+        const errors = {};
+        if (!values.title) {
+          errors.title = "Question is required";
+        } 
+        if (!values.details) {
+            errors.details = "Answer is required!";
+        } 
+        return errors;
+      };
 
     const handleEditSubmit = async ({id}) =>{
-        await client.put('faq/',{...inputs,id:id})
-        setInputs("")
-        await getFaq()
-        return true
+        const errors = validate(inputs)
+        if(Object.keys(errors).length === 0){
+            await client.put('faq/',{...inputs,id:id})
+            setInputs("")
+            setFormErrors({})
+            await getFaq()
+            return true
+        } else{
+            setFormErrors(errors);
+            return false
+        }
      }
 
     const EditForm = () =>{
@@ -25,7 +46,8 @@ function useEditForm ({getFaq,details,title,categories}){
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-title">
                     Question
                 </label>
-                <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-title" type="text" placeholder="" onChange={handleChange} name="title" value={inputs.title || title}/>
+                <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-title" type="text" placeholder="" onChange={handleChange} name="title" value={inputs.title}/>
+                <h6 className="text-red-500 text-lg">{formErrors.title}</h6>
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -33,7 +55,8 @@ function useEditForm ({getFaq,details,title,categories}){
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-detail">
                     Answer
                 </label>
-                <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="" onChange={handleChange} name="details" value={inputs.details|| details}/>
+                <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-detail" placeholder="" onChange={handleChange} name="details" value={inputs.details}/>
+                <h6 className="text-red-500 text-lg">{formErrors.details}</h6>
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -42,7 +65,7 @@ function useEditForm ({getFaq,details,title,categories}){
                     Category
                 </label>
                 <div className="relative">
-                    <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" onChange={handleChange} name="category" value={inputs.category || ""}>
+                    <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" onChange={handleChange} name="category" value={inputs.category}>
                     {
                         categories.map((data,idx)=>{
                             return <option key={idx}>{data.category}</option>

@@ -60,7 +60,7 @@ function ListView({items,header,TicketForm,ticketSaveFunction,getTicket}) {
             return(
                 <ListItem className="border-gray-950 border-b-2 focus:bg-blue-500" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
                     <div>
-                    <Typography variant="h6">Title: {data.title}</Typography>
+                    <Typography variant="h6">{data.title}</Typography>
                     <Typography variant="h6">Last Reply: {data.status}</Typography>
                     </div>
                 </ListItem>

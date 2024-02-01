@@ -19,7 +19,6 @@ function HomePage() {
     const { instance } = useMsal();
     const isAuthenticated = useIsAuthenticated();
     const [type,setType] = useState(localStorage.getItem('type'))
-    // The next 3 lines are optional. This is how you configure MSAL to take advantage of the router's navigate functions when MSAL redirects between pages in your app
     const handleLogin = async () => {
       try {
         await instance.loginPopup();
@@ -29,11 +28,11 @@ function HomePage() {
       } catch (error) {
       }
     };
-    const ticketLabels = ['last reply by you','last reply by others','closed']
-    const taskLabels = ['in progress','completed']
+    const ticketLabels = ['Last Replied: Me','Last Replied: Others','Closed']
+    const taskLabels = ['Last Replied: Me','Last Replied: Others','Closed']
     const [count,setCount]=useState({
       ticket:[0,0,0],
-      task:[0,0]
+      task:[0,0,0]
     })
     const getCount= async ()=>{
       const res=await client.get('count/')
@@ -105,10 +104,12 @@ function HomePage() {
                         data: count.task,
                         backgroundColor: [
                           'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
                           'rgba(255, 159, 64, 0.2)',
                         ],
                         borderColor: [
                           'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
                           'rgb(255, 159, 64)',
                         ],
                         borderWidth: 1,

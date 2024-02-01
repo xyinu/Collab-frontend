@@ -4,7 +4,7 @@ import CardView from "./taskCardView";
 import change from "../../../assets/change.png"
 import search from "../../../assets/search.webp"
  
-function TaskListView({items,header,setChange}) {
+function TaskListView({items,header,setChange,getTask}) {
   const [selected, setSelected] = useState({idx:0,data:items?.[0]});
   const [store, setStore] = useState()
 
@@ -32,7 +32,7 @@ function TaskListView({items,header,setChange}) {
   }
  
   return (
-    <div className="flex flex-row py-3 px-3 items-start flex-grow w-screen">
+    <div className="flex flex-row py-3 px-3 items-start flex-grow">
     <Card className="w-96 mr-4 border-2 border-black h-full">
         <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
         <Typography variant="h5">{header}</Typography>
@@ -58,13 +58,13 @@ function TaskListView({items,header,setChange}) {
         {store?.map((data,idx)=>{
             return(
                 <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
-                    <Typography variant="h6">Title: {data.title}</Typography>
+                    <Typography variant="h6">{data.title}</Typography>
                 </ListItem>
             )
         })}
       </ul>
     </Card>
-    <CardView data={selected.data}/>
+    <CardView data={selected.data} getTask={getTask}/>
     </div>
   );
 }

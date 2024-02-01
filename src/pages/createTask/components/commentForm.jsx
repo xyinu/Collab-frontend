@@ -1,7 +1,7 @@
 import { useState } from "react";
 import client from "../../../axios";
 
-function useCommentForm ({getTicket}){
+function useCommentForm ({getTask}){
     const [inputs, setInputs] = useState("");
     const [formErrors, setFormError] = useState('');
 
@@ -10,10 +10,10 @@ function useCommentForm ({getTicket}){
         setInputs(value)
     }
 
-    async function commentTicket({id}){
+    async function commentTask({id}){
         if(inputs){
-            await client.post('completeticket/',{comment:inputs,id})
-            getTicket()
+            await client.post('completetask/',{comment:inputs,id})
+            getTask()
             setFormError('')
             setInputs("")
             return true
@@ -39,7 +39,7 @@ function useCommentForm ({getTicket}){
         )
     }
     return ({
-        commentTicket,
+        commentTask,
         CommentForm
     })
 }

@@ -12,7 +12,7 @@ function CreateTicket(){
         const request= await client.get('ticketthread/')
         setTickets(request.data)
     }
-
+    console.log(tickets)
     const {TicketForm, handleTicketSubmit} = useTicketForm({getTicket})
     const isAuthenticated = useIsAuthenticated();
 

@@ -40,7 +40,7 @@ function Completed(){
                 screen ?
                 <TicketListView items={tickets} header={'Ticket'} setChange={setChange} getTicket={getTicket}/>
                 :
-                <TaskListView items={tasks} header={'Tasks'} setChange={setChange}/>
+                <TaskListView items={tasks} header={'Tasks'} setChange={setChange} getTask={getTask}/>
             }
         </div>
     )

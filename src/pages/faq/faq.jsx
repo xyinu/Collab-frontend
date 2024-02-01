@@ -38,10 +38,10 @@ function FAQ(){
     const validate = (values) => {
         const errors = {};
         if (!values.title) {
-          errors.title = "Title is required";
+          errors.title = "Question is required";
         } 
         if (!values.details) {
-            errors.details = "Detail is required!";
+            errors.details = "Answer is required!";
         } 
         return errors;
       };
