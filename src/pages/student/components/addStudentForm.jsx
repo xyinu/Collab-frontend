@@ -1,32 +1,25 @@
 import { useEffect, useState } from "react";
 import client from "../../../axios";
+import { Button, Typography } from "@material-tailwind/react";
+import { useIsAuthenticated } from "@azure/msal-react";
 
-function useEditForm ({getStudent,data}){
-    const [inputs, setInputs] = useState(data);
+function useStudentForm ({getStudent}){
+    const [inputs, setInputs] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [groups, setGroups]=useState([])
     const [groupInput, setGroupInput]=useState([])
+
     async function getGroups(){
         const request = await client.get('group/')
         setGroups(request.data)
     }
-    useEffect(()=>{
-        setInputs(data)
-        getGroups()
-        const selectedgroup=data?.group_course.map((dat)=>{
-            console.log(dat)
-            return `${dat.group.course_code} ${dat.group.code} ${dat.group.type}`
-        })
-        console.log(selectedgroup)
-        setGroupInput(selectedgroup)
-    },[data])
-    
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))  
+        setInputs(values => ({...values, [name]: value}))
     }
-
+    
     const validate = (values) => {
         const errors = {};
         if (!values.name) {
@@ -49,11 +42,12 @@ function useEditForm ({getStudent,data}){
         } 
         return errors;
       };
-    const handleEditSubmit = async () =>{
+
+    const handleSubmit = async () =>{
         const errors = validate(inputs)
         if(Object.keys(errors).length === 0){
             try{
-                await client.post('editstudent/',{...inputs, groups:groupInput,id:data.id},{
+                await client.post('addstudent/',{...inputs, groups:groupInput},{
                     headers: {
                       "Content-Type": "multipart/form-data",
                     },
@@ -81,9 +75,17 @@ function useEditForm ({getStudent,data}){
         }
     }
 
-    const EditForm = () =>{
+    const isAuthenticated = useIsAuthenticated();
+
+    useEffect(()=>{
+        if(isAuthenticated){
+            getGroups()
+        }
+    },[isAuthenticated])
+
+    const StudentForm = () =>{
         return (
-            <form className="w-full">
+        <form className="w-full">
             <div className="flex flex-wrap -mx-3">
                 <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-title">
@@ -164,9 +166,9 @@ function useEditForm ({getStudent,data}){
         )
     }
     return ({
-        handleEditSubmit,
-        EditForm
+        handleSubmit,
+        StudentForm
     })
 }
 
-export default useEditForm;
+export default useStudentForm;

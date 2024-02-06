@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import ntu from "../assets/ntu_logo.png"
+import ntu from "../assets/ntu.png"
 import { msalInstance } from "../main"
 import { Typography } from "@material-tailwind/react"
 import { useEffect, useState } from "react"
@@ -30,7 +30,7 @@ function NavBar(){
 
     return(
       type && 
-<nav className="flex justify-around py-4 border-b-2 w-full">
+<nav className="flex justify-around py-4 border-b-2 w-full bg-ntublue">
   <div className="flex items-center">
     <Link to="/">
         <img src={ntu} className="object-scale-down h-25 w-48"/>
@@ -41,68 +41,68 @@ function NavBar(){
     <Typography
         as="li"
         variant="h4"
-        color="blue-gray"
+        color="white"
         className="p-1 font-medium"
       >
-        <Link to="/" className="hover:text-blue-500">Home</Link>
+        <Link to="/" className="hover:text-ntured">Home</Link>
     </Typography>
     <Typography
         as="li"
         variant="h4"
-        color="blue-gray"
+        color="white"
         className="p-1 font-medium"
       >
-    <Link to="/createticket" className="hover:text-blue-500">Ticket</Link>
+    <Link to="/createticket" className="hover:text-ntured">Ticket</Link>
     </Typography>
     <Typography
         as="li"
         variant="h4"
-        color="blue-gray"
+        color="white"
         className="p-1 font-medium"
       >
-    <Link to="/createtask" className="hover:text-blue-500">Task</Link>
+    <Link to="/createtask" className="hover:text-ntured">Task</Link>
     </Typography>
     <Typography
         as="li"
         variant="h4"
-        color="blue-gray"
+        color="white"
         className="p-1 font-medium"
       >
-    <Link to="/completed" className="hover:text-blue-500">Completed</Link>
+    <Link to="/completed" className="hover:text-ntured">Completed</Link>
     </Typography>
     <Typography
         as="li"
         variant="h4"
-        color="blue-gray"
+        color="white"
         className="p-1 font-medium"
       >
-    <Link to="/student" className="hover:text-blue-500">Students</Link>
+    <Link to="/student" className="hover:text-ntured">Students</Link>
     </Typography>
     {
         type==='Prof'&&
     <Typography
         as="li"
         variant="h4"
-        color="blue-gray"
+        color="white"
         className="p-1 font-medium"
       >
-    <Link to="/class" className="hover:text-blue-500">Class</Link>
+    <Link to="/class" className="hover:text-ntured">Class</Link>
     </Typography>
     }
     <Typography
         as="li"
         variant="h4"
-        color="blue-gray"
+        color="white"
         className="p-1 font-medium"
       >
-    <Link to="/faq" className="hover:text-blue-500">FAQ</Link>
+    <Link to="/faq" className="hover:text-ntured">FAQ</Link>
     </Typography>
   </div>
   {/* <!-- right header section --> */}
   <div className="flex items-center space-x-2">
       {
         type==='Prof'&&
-    <button className="px-2 py-1 text-gray-200 bg-blue-400 rounded-md">
+    <button className="px-2 py-1 text-gray-200 bg-ntured rounded-md">
     <Typography
         variant="h6"
         className="p-1 font-medium"
@@ -113,7 +113,7 @@ function NavBar(){
     </Typography>
     </button>
       }
-    <button className="px-2 py-1 text-gray-200 bg-blue-400 rounded-md" onClick={logout}>
+    <button className="px-2 py-1 text-gray-200 bg-ntured rounded-md" onClick={logout}>
     <Typography
         variant="h6"
         className="p-1 font-medium"

@@ -9,14 +9,20 @@ export default withMT({
   theme: {
     fontFamily: {
       sans: ['"PT Sans"', 'sans-serif']
-    }
+    },
+    extend:{
+      colors: {
+        ntured: '#d71440',
+        ntublue: '#181C62'
+      },
+    },
   },
   plugins: [
     plugin(({ addBase, theme }) => {
         addBase({
             '.scrollbar': {
                 overflowY: 'auto',
-                scrollbarColor: `${theme('colors.blue.600')} ${theme('colors.blue.200')}`,
+                scrollbarColor: `${theme('colors.ntublue')} ${theme('colors.blue.200')}`,
                 scrollbarWidth: 'thin',
             },
             '.scrollbar::-webkit-scrollbar': {

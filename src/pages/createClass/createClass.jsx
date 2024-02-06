@@ -10,8 +10,7 @@ function CreateClass(){
     const [inputs, setInputs] = useState();
     const [classes, setClasses] = useState([]);
     const [formErrors, setFormErrors] = useState({});
-
-    const validate = (values) => {
+    const validate = () => {
         const errors = {};
         if (!file) {
           errors.file = "File is required!";

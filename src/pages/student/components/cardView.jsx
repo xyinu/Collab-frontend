@@ -9,26 +9,26 @@ import Modal from "../../../components/modals";
 import useEditForm from "./editStudentForm";
 
    
-function CardView({data,getFaq}) {
+function CardView({data,getStudent}) {
   const type=localStorage.getItem('type')
-  const {EditForm, handleEditSubmit} = useEditForm({getFaq,title:data?.title,details:data?.details})
+  const {EditForm, handleEditSubmit} = useEditForm({getStudent,data})
   
     return (
         <>
         {data &&
-        <Card className="border-2 border-black h-full flex-grow">
-        <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
+        <Card className="border-2 rounded-none border-black h-full flex-grow">
+        <header className="bg-ntublue text-white flex items-center justify-center py-4">
         <Typography variant="h5">{data.name}</Typography>
-        {/* <div className="absolute right-3 text-black">
+        <div className="absolute right-3 text-black">
             {type==='Prof' &&             
             <Modal 
             Body={EditForm} 
-            title={"edit FAQ"} 
+            title={"edit Student"} 
             saveFunction={handleEditSubmit} 
             id={data.id} 
-            buttonName={'edit FAQ'}
+            buttonName={'edit Student'}
             />}
-        </div> */}
+        </div>
         </header>
         <div className="overflow-auto h-[calc(100vh-205px)] p-3 scrollbar">
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -78,7 +78,7 @@ function CardView({data,getFaq}) {
         </Card>
         }
         {!data && 
-            <Card className="w-96 border-2 border-black h-full flex-grow items-center justify-center">
+            <Card className="w-96 border-2 rounded-none border-black h-full flex-grow items-center justify-center">
             <Typography variant="h1" color="blue-gray" className="mb-2 ">
                 No Students Currently
             </Typography>

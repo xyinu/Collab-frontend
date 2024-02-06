@@ -36,16 +36,16 @@ function ListView({items,header,TicketForm,ticketSaveFunction,getTicket}) {
  
   return (
     <div className="flex flex-row py-3 px-3 items-start flex-grow">
-    <Card className="w-96 mr-4 border-2 border-black h-full">
-        <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
+    <Card className="rounded-none w-96 mr-4 border-2 border-black h-full">
+        <header className="bg-ntublue text-white flex items-center justify-center py-4">
         <Typography variant="h5">{header}</Typography>
         <div className="absolute right-1 text-black">
         <Modal Body={TicketForm} title={"Create Ticket"} saveFunction={ticketSaveFunction} buttonName={<Typography variant="h5">+</Typography>}/>
         </div>
         </header>
-        <form className="flex flex-row items-center appearance-none block w-full bg-gray-200 text-gray-700 border border-black rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
+        <form className="flex flex-row items-center appearance-none block w-full bg-gray-200 text-gray-700 border border-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
         <input 
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded leading-tight py-3 px-4 focus:outline-none" 
+        className="appearance-none block w-full bg-gray-200 text-gray-700 border leading-tight py-3 px-4 focus:outline-none" 
         type="text" 
         placeholder="Search" 
         onChange={handleSearchChange} 
@@ -58,7 +58,7 @@ function ListView({items,header,TicketForm,ticketSaveFunction,getTicket}) {
       <ul className="overflow-auto h-[calc(100vh-250px)] p-1 scrollbar">
         {store?.map((data,idx)=>{
             return(
-                <ListItem className="border-gray-950 border-b-2 focus:bg-blue-500" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
+                <ListItem className="border-gray-950 border-b-2 focus:bg-ntured" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,data)}>
                     <div>
                     <Typography variant="h6">{data.title}</Typography>
                     <Typography variant="h6">Last Reply: {data.status}</Typography>

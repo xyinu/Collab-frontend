@@ -20,8 +20,8 @@ function CardView({data,getFaq,categories}) {
     return (
         <>
         {data &&
-        <Card className="border-2 border-black h-full flex-grow">
-        <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
+        <Card className="border-2 border-black h-full rounded-none flex-grow">
+        <header className="bg-ntublue text-white flex items-center justify-center py-4">
           <div className="w-2/3 text-pretty break-all">
         <Typography variant="h5" className="flex item-center justify-center">{data.title}</Typography>
           </div>
@@ -35,9 +35,10 @@ function CardView({data,getFaq,categories}) {
             saveFunction={handleEditSubmit} 
             id={data.id} 
             buttonName={'edit FAQ'}
+            color={'bg-ntured'}
             />
             </div>
-            <Button size="lg" color="pink" onClick={() => {deleteFaq(data.id)}}>Delete</Button>
+            <Button size="lg" className="bg-ntured" onClick={() => {deleteFaq(data.id)}}>Delete</Button>
             </div>
             }
         </div>

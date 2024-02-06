@@ -33,8 +33,8 @@ function TicketCardView({data,getTicket}) {
     return (
         <>
         {data &&
-        <Card className="border-2 border-black flex-grow">
-        <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
+        <Card className="border-2 border-black flex-grow h-full rounded-none">
+        <header className="bg-ntublue text-white flex items-center justify-center py-4">
         <Typography variant="h5">{data.title}</Typography>
         <div className="absolute right-3 text-black">
           <Modal 
@@ -77,19 +77,20 @@ function TicketCardView({data,getTicket}) {
           <Typography variant="h6" color="blue-gray" className="mb-2 whitespace-pre-line">
            Details: {data.details}
           </Typography>
-          <Typography variant="h6" color="blue-gray" className="mb-2">
-            Thread:
+          <div className="border-b border-ntublue"/>
+          <Typography variant="h6" color="blue-gray" className="my-2">
+            Comments:
           </Typography>
           <div className="flex flex-col">
           {data.thread.map((dat,idx)=>{
             return(
-              <div key={idx} className={`${dat.type===type ? 'place-self-end bg-blue-200' : 'bg-gray-200'} w-1/3 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words`}>
-              <Typography variant="h6" color="blue-gray">
-                Date:{dayjs(dat.date).format('YYYY-MM-DD, HH:mm:ss')}
-              </Typography>
+              <div key={idx} className={`${dat.type===type ? 'place-self-end bg-blue-200' : 'bg-red-100'} w-1/3 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words flex flex-col`}>
               <Typography variant="h6" color="blue-gray" className="whitespace-pre-line">
                 {dat.details}
               </Typography>
+              <text className="place-self-end">
+                {dayjs(dat.date).format('DD/mm/YY HH:mm')}
+              </text>
               </div>
             )
           })}
@@ -98,7 +99,7 @@ function TicketCardView({data,getTicket}) {
         </Card>
         }
         {!data && 
-            <Card className="w-96 border-2 border-black h-full flex-grow items-center justify-center">
+            <Card className="w-96 rounded-none border-2 border-black h-full flex-grow items-center justify-center">
             <Typography variant="h1" color="blue-gray" className="mb-2 ">
                 No Tickets
             </Typography>

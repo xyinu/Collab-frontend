@@ -51,6 +51,10 @@ function AddUser(){
         const res = await client.get('user/')
         setUser(res.data)
     }
+    const deleteUser = async (email) =>{
+        await client.post('deleteuser/',{email})
+        getUser()
+    }
     const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
@@ -87,7 +91,7 @@ function AddUser(){
                     </div>
                 </div>
             </div>
-            <Button size="lg" color="blue-gray" onClick={() => {handleSubmit()}}>Add User</Button>
+            <Button size="lg" className="bg-ntured" onClick={() => {handleSubmit()}}>Add User</Button>
             {response && <Typography color={response.color} variant="h6">{response.message}</Typography>}
         </form>
         <div className="flex flex-row">
@@ -95,9 +99,9 @@ function AddUser(){
         <Typography variant="h6">Profs registered</Typography>
             {user.prof.map((data,idx)=>{
                 if(data.name){
-                    return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email}</Typography>
+                    return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email} <Button size="sm" className="bg-ntured mb-1" onClick={() => {deleteUser(data.email)}}>-</Button></Typography>
                 } else {
-                    return <Typography key={idx}>{idx+1}{')'} Pending Sign Up - {data.email}</Typography>
+                    return <Typography key={idx}>{idx+1}{')'} Pending Sign Up - {data.email} <Button size="sm" className="bg-ntured mb-1" onClick={() => {deleteUser(data.email)}}>-</Button></Typography>
                 }
             })}
         </div>
@@ -105,9 +109,9 @@ function AddUser(){
         <Typography variant="h6">TAs registered</Typography>
             {user.TA.map((data,idx)=>{
                 if(data.name){
-                    return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email}</Typography>
+                    return <Typography key={idx}>{idx+1}{')'} {data.name} - {data.email} <Button size="sm" className="bg-ntured mb-1" onClick={() => {deleteUser(data.email)}}>-</Button></Typography>
                 } else {
-                    return <Typography key={idx}>{idx+1}{')'} Pending Sign Up - {data.email}</Typography>
+                    return <Typography key={idx}>{idx+1}{')'} Pending Sign Up - {data.email} <Button size="sm" className="bg-ntured mb-1" onClick={() => {deleteUser(data.email)}}>-</Button></Typography>
                 }            })}
         </div>
         </div>

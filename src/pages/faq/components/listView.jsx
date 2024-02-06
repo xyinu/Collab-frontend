@@ -31,16 +31,16 @@ function ListView({items,header,getFaq,Form,saveFunction, categories}) {
  
   return (
     <div className="flex flex-row py-3 px-3 items-start flex-grow">
-    <Card className="w-96 mr-4 border-2 border-black h-full">
-        <header className="bg-green-600 text-white flex items-center justify-center py-4 rounded-lg">
+    <Card className="w-96 mr-4 border-2 rounded-none border-black h-full">
+        <header className="bg-ntublue text-white flex items-center justify-center py-4">
         <Typography variant="h5">{header}</Typography>
         <div className="absolute right-1 text-black">
-      {type==='Prof' && <Modal Body={Form} title={"Create FAQ"} saveFunction={saveFunction} buttonName={<Typography variant="h5">+</Typography>}/>}
+      {type==='Prof' && <Modal Body={Form} title={"Create FAQ"} saveFunction={saveFunction} color={'bg-ntured'} buttonName={<Typography variant="h5">+</Typography>}/>}
       </div>
         </header>
-      <form className="flex flex-row items-center appearance-none block w-full bg-gray-200 text-gray-700 border border-black rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
+      <form className="flex flex-row items-center appearance-none block w-full bg-gray-200 text-gray-700 border border-black leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
         <input 
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded leading-tight py-3 px-4 focus:outline-none" 
+        className="appearance-none block w-full bg-gray-200 text-gray-700 border leading-tight py-3 px-4 focus:outline-none" 
         type="text" 
         placeholder="Search" 
         onChange={handleSearchChange} 
