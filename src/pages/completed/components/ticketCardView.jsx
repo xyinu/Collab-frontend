@@ -13,16 +13,23 @@ import mime from 'mime';
 function TicketCardView({data,getTicket}) {
     const type=localStorage.getItem('type')
     const {commentTicket,CommentForm}=useCommentForm({getItem:getTicket,item:'ticket'})
-    const download = async() =>{
-      const res=await client.post('downloadfile/',{id:data.id},{responseType: 'blob'})
-      const type = mime.getType(data.file_name)
+    const download = async(id,file_name) =>{
+      let res
+      let type
+      if(id){
+        res=await client.post('downloadthreadfile/',{id},{responseType: 'blob'})
+        type = mime.getType(file_name)
+      }else{
+        res=await client.post('downloadfile/',{id:data.id},{responseType: 'blob'})
+        type = mime.getType(data.file_name)
+      }
       const url = window.URL.createObjectURL(new Blob([res.data], {
         type: type,
       }));
 
       const link = document.createElement('a');
       link.href = url;
-      link.download = data.file_name;
+      link.download = file_name?file_name:data.file_name;
     
       document.body.appendChild(link);
     
@@ -71,7 +78,7 @@ function TicketCardView({data,getTicket}) {
           <Typography variant="h6" color="blue-gray" className="mr-2">
             File uploaded: {data.file_name}
           </Typography>
-          <Button size="sm" color="blue-gray" className="w-30" onClick={download}>Download</Button>
+          <Button size="sm" color="blue-gray" className="w-30" onClick={()=>download()}>Download</Button>
             </div>
           }
           <Typography variant="h6" color="blue-gray" className="mb-2 whitespace-pre-line">
@@ -88,9 +95,18 @@ function TicketCardView({data,getTicket}) {
               <Typography variant="h6" color="blue-gray" className="whitespace-pre-line">
                 {dat.details}
               </Typography>
-              <text className="place-self-end">
+              {
+                dat.file_name &&
+                <div className="flex items-center content-center mb-2">
+              <Typography color="blue-gray" className="mr-2">
+                File: {dat.file_name}
+              </Typography>
+              <Button size="sm" color="blue-gray" className="w-30" onClick={()=>download(dat.id,dat.file_name)}>Download</Button>
+                </div>
+              }
+              <p className="place-self-end">
                 {dayjs(dat.date).format('DD/mm/YY HH:mm')}
-              </text>
+              </p>
               </div>
             )
           })}
