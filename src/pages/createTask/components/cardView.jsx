@@ -174,7 +174,7 @@ function CardView({data, getTask}) {
         {!data && 
             <Card className="w-96 border-2 rounded-none border-black h-full flex-grow items-center justify-center">
             <Typography variant="h1" color="blue-gray" className="mb-2 ">
-                No Task Assigned
+                No Tasks
             </Typography>
             </Card>
         }
