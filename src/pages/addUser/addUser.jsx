@@ -91,7 +91,7 @@ function AddUser(){
                     </div>
                 </div>
             </div>
-            <Button size="lg" className="bg-ntured" onClick={() => {handleSubmit()}}>Add User</Button>
+            <Button size="lg" className="bg-ntured border-none" onClick={() => {handleSubmit()}}>Add User</Button>
             {response && <Typography color={response.color} variant="h6">{response.message}</Typography>}
         </form>
         <div className="flex flex-row">

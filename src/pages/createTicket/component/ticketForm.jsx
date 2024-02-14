@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import client from "../../../axios";
 import { Button, Typography } from "@material-tailwind/react";
 import { useIsAuthenticated } from "@azure/msal-react";
+import uploadcloud from '../../../assets/upload-cloud.svg'
 
 function useTicketForm ({getTicket}){
-    const [inputs, setInputs] = useState({category:"Student Issue", severity:"High"});
+    const [inputs, setInputs] = useState({category:"Student Request", severity:"High"});
     const [prof, setProf]=useState([])
     const [student, setStudent]=useState([])
     const [file, setFile] = useState(null);
@@ -67,9 +68,10 @@ function useTicketForm ({getTicket}){
                   "Content-Type": "multipart/form-data",
                 },
               })
-            setInputs({category:"Student Issue", severity:"High"})
+            setInputs({category:"Student Request", severity:"High"})
             getTicket()
             setFormErrors({})
+            setFile(null)
             return true
         } else{
             setFormErrors(errors);
@@ -253,13 +255,25 @@ function useTicketForm ({getTicket}){
             </div>
             <div className="flex flex-wrap -mx-3">
             <div className="w-full px-3">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                    Upload relevant file if needed
-                </label>
-                <label htmlFor="file" className="sr-only py-3">
-                Choose a file
-                </label>
-                <input id="file" type="file" onChange={handleFileChange} />
+            <label className="block uppercase text-gray-700 text-xs font-bold">
+                Upload relevant file if needed
+            </label>
+            <div className="flex flex-row items-center">
+            <label htmlFor="uploadFile1"
+              className="bg-ntured text-white text-sm px-4 py-2.5 outline-none rounded-none w-max cursor-pointer">
+              <svg xmlns={uploadcloud} className="w-5 mr-2 fill-white inline" viewBox="0 0 32 32">
+                <path
+                  d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
+                  data-original="#000000" />
+                <path
+                  d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
+                  data-original="#000000" />
+              </svg>
+              Upload
+              <input type="file" id='uploadFile1' className="hidden" onChange={handleFileChange}/>
+            </label>
+            <p className="truncate ml-2">{file?.name}</p>
+            </div>
             </div>
             </div>
         </form>
