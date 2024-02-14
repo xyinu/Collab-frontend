@@ -12,7 +12,7 @@ function useTicketForm ({getTicket}){
     const [categories, setCategories]=useState([])
     const [categoryInput, setCategoryInput]=useState("")
     const [show, setShow]=useState(false)
-
+    const [groups,setGroups]=useState([])
     const handleShow =(e) =>{
         setShow(prev=>!prev)
     }
@@ -53,6 +53,9 @@ function useTicketForm ({getTicket}){
         if (!values.details) {
             errors.details = "Detail is required!";
         } 
+        if (!values.group) {
+            errors.group = "Course Group Type is required!";
+        } 
         return errors;
       };
 
@@ -84,7 +87,10 @@ function useTicketForm ({getTicket}){
         const request = await client.get('prof/')
         setProf(request.data)
     }
-
+    async function getGroups(){
+        const request = await client.get('group/')
+        setGroups(request.data)
+    }
     const handleFileChange = (e) => {
         if (e.target.files) {
           setFile(e.target.files[0]);
@@ -97,13 +103,14 @@ function useTicketForm ({getTicket}){
             getStudent()
             getProf()
             getCategories()
+            getGroups()
         }
     },[isAuthenticated])
 
     const TicketForm = () =>{
         return (
         <form className="w-full">
-            <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
                     Prof
@@ -125,7 +132,7 @@ function useTicketForm ({getTicket}){
                 </div>
             </div>
             
-            <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
                     Student
@@ -146,7 +153,7 @@ function useTicketForm ({getTicket}){
                     <h6 className="text-red-500 text-lg">{formErrors.student}</h6>
                 </div>
             </div>
-            <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="flex flex-wrap -mx-3 mb-2">
                 <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-title">
                     Title
@@ -155,7 +162,28 @@ function useTicketForm ({getTicket}){
                 <h6 className="text-red-500 text-lg">{formErrors.title}</h6>
                 </div>
             </div>
-            <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="flex flex-wrap -mx-3">
+                <div className="w-full px-3">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
+                    Course Group Type 
+                </label>
+                <div className="relative mb-2">
+                    <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" onChange={handleChange} name="group" value={inputs.group || ""}>
+                    <option hidden disabled value=''> -- select an option -- </option>
+                    {groups.map((data,idx)=>{
+                        return (
+                            <option key={idx} value={`${data.cour_code} ${data.group_code} ${data.type}`}>{`${data.cour_code} ${data.group_code} ${data.type}`}</option>
+                            )
+                    })}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                    <h6 className="text-red-500 text-lg">{formErrors.group}</h6>
+                </div>
+                </div>
+                </div>
+            <div className="flex flex-wrap -mx-3">
                 <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-detail">
                     Detail
@@ -165,7 +193,7 @@ function useTicketForm ({getTicket}){
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-2">
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
                     Category
                 </label>
@@ -182,7 +210,7 @@ function useTicketForm ({getTicket}){
                     </div>
                 </div>
                 </div>
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
                     Severity
                 </label>
@@ -200,7 +228,7 @@ function useTicketForm ({getTicket}){
             </div>
             <div>
             {show && 
-            <div className="flex flex-row">
+            <div className="flex flex-row mb-2">
             <input className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded mr-2 w-1/2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="" onChange={handleCategoryChange} name="categories" value={categoryInput}/>
             <Button size="sm" color="green" onClick={handleCategorySubmit}>
             <p>
@@ -216,14 +244,14 @@ function useTicketForm ({getTicket}){
             }
             {
                 !show &&
-                <Button size="sm" color="green" onClick={handleShow}>
+                <Button size="sm" color="green" onClick={handleShow} className="mb-2">
                 <p>
                     Add Category
                 </p>
                 </Button>
             }
             </div>
-            <div className="flex flex-wrap -mx-3 mt-6">
+            <div className="flex flex-wrap -mx-3">
             <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                     Upload relevant file if needed

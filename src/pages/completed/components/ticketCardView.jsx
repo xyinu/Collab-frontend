@@ -12,6 +12,7 @@ import mime from 'mime';
 
 function TicketCardView({data,getTicket}) {
     const type=localStorage.getItem('type')
+    const email=localStorage.getItem('email')
     const {commentTicket,CommentForm}=useCommentForm({getItem:getTicket,item:'ticket'})
     const download = async(id,file_name) =>{
       let res
@@ -64,6 +65,9 @@ function TicketCardView({data,getTicket}) {
             TO: {data.prof}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
+          Course Group Type: {data.group?.course_code} {data.group?.code} {data.group?.type}
+          </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             Student: {data.student.name}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -91,7 +95,7 @@ function TicketCardView({data,getTicket}) {
           <div className="flex flex-col">
           {data.thread.map((dat,idx)=>{
             return(
-              <div key={idx} className={`${dat.type===type ? 'place-self-end bg-blue-200' : 'bg-red-100'} w-1/3 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words flex flex-col`}>
+              <div key={idx} className={`${dat.email===email ? 'place-self-end bg-blue-200' : 'bg-red-100'} w-1/3 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words flex flex-col`}>
               <Typography variant="h6" color="blue-gray" className="whitespace-pre-line">
                 {dat.details}
               </Typography>

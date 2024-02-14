@@ -35,10 +35,9 @@ function CardView({data,getFaq,categories}) {
             saveFunction={handleEditSubmit} 
             id={data.id} 
             buttonName={'edit FAQ'}
-            color={'bg-ntured'}
             />
             </div>
-            <Button size="lg" className="bg-ntured" onClick={() => {deleteFaq(data.id)}}>Delete</Button>
+            <Button size="lg" className="bg-ntured rounded-none" onClick={() => {deleteFaq(data.id)}}>Delete</Button>
             </div>
             }
         </div>

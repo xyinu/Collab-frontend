@@ -5,7 +5,7 @@ function Modal({saveFunction, title, Body, id, buttonName,color}) {
   return (
     <>
       <button
-        className={`${color?color:'bg-pink-500'} rounded-lg w-full h-full text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150`}
+        className={`bg-ntured rounded-none w-full h-full text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150`}
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -47,7 +47,7 @@ function Modal({saveFunction, title, Body, id, buttonName,color}) {
                     Close
                   </button>
                   <button
-                    className="bg-green-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-ntured text-white active:bg-ntured font-bold uppercase text-sm px-6 py-3 rounded-none shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={async () => {
                       if(await saveFunction({id})){

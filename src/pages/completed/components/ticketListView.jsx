@@ -38,7 +38,7 @@ function TicketListView({items,header,setChange, getTicket}) {
         <header className="bg-ntublue text-white flex items-center justify-center py-4">
         <Typography variant="h5">{header}</Typography>
         <div className="absolute right-1">
-        <Button size="lg" className="bg-ntured" onClick={setChange}>
+        <Button size="lg" className="bg-ntured rounded-none" onClick={setChange}>
           Task
         </Button>
         </div>

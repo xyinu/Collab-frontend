@@ -20,6 +20,7 @@ client.interceptors.request.use(
                const token = await msalInstance.loginPopup()
                const res = await client.get('usertype/')
                localStorage.setItem('type',res.data.type)
+               localStorage.setItem('email',res.data.email)
                config.headers['Authorization'] = `Bearer ${token.idToken}`;
                return config;
             }

@@ -24,6 +24,7 @@ function HomePage() {
         await instance.loginPopup();
         const res = await client.get('usertype/')
         localStorage.setItem('type',res.data.type)
+        localStorage.setItem('email',res.data.email)
         setType(res.data.type)
       } catch (error) {
       }

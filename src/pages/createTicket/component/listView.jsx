@@ -15,7 +15,6 @@ function ListView({items,header,TicketForm,ticketSaveFunction,getTicket}) {
     setSelected((prev)=>{return {...prev, data:items?.[prev.idx]}})
     setStore(items)
   },[items])
-  console.log(items)
   const handleSearchChange = (e) => {
     if (!e.target.value) return setStore(items)
     const val = e.target.value.toLowerCase()

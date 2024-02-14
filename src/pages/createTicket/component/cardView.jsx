@@ -7,17 +7,19 @@ import {
 import Modal from "../../../components/modals";
 import dayjs from 'dayjs'
 import useCommentForm from "./commentForm";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import client from "../../../axios";
 import mime from 'mime';
+import uploadcloud from '../../../assets/upload-cloud.svg'
    
 function CardView({data,getTicket}) {
     const type=localStorage.getItem('type')
+    const email=localStorage.getItem('email')
     const {commentTicket,CommentForm}=useCommentForm({getTicket})
     const [inputs,setInputs] = useState('')
     const [show, setShow]=useState(false)
     const [file, setFile] = useState(null);
-    const ref = useRef();
+    console.log(file)
     const handleThreadSubmit = async () =>{
       if(inputs){
         await client.post('createthread/',{details:inputs,id:data.id,file:file},{
@@ -28,7 +30,6 @@ function CardView({data,getTicket}) {
         setInputs("")
         setShow(false)
         setFile(null)
-        ref.current.value = "";
         await getTicket()
         return true
       } else{
@@ -100,6 +101,9 @@ function CardView({data,getTicket}) {
             TO: {data.prof}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
+          Course Group Type: {data.group?.course_code} {data.group?.code} {data.group?.type}
+          </Typography>
+          <Typography variant="h6" color="blue-gray" className="mb-2">
             Student: {data.student.name}
           </Typography>
           <Typography variant="h6" color="blue-gray" className="mb-2">
@@ -127,7 +131,7 @@ function CardView({data,getTicket}) {
           <div className="flex flex-col">
           {data.thread.map((dat,idx)=>{
             return(
-              <div key={idx} className={`${dat.type===type ? 'place-self-end bg-blue-200' : 'bg-red-100'} w-1/3 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words flex flex-col`}>
+              <div key={idx} className={`${dat.email===email ? 'place-self-end bg-blue-200' : 'bg-red-100'} w-1/3 border-2 border-transparent mb-1 inline-block rounded-2xl px-2 py-1 text-pretty break-words flex flex-col`}>
               <Typography variant="h6" color="blue-gray" className="whitespace-pre-line">
                 {dat.details}
               </Typography>
@@ -158,10 +162,22 @@ function CardView({data,getTicket}) {
             <label className="block uppercase text-gray-700 text-xs font-bold">
                 Upload relevant file if needed
             </label>
-            <label htmlFor="file" className="sr-only">
-            Choose a file
+            <div className="flex flex-row items-center">
+            <label htmlFor="uploadFile1"
+              className="bg-ntured text-white text-sm px-4 py-2.5 outline-none rounded-none w-max cursor-pointer">
+              <svg xmlns={uploadcloud} className="w-5 mr-2 fill-white inline" viewBox="0 0 32 32">
+                <path
+                  d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
+                  data-original="#000000" />
+                <path
+                  d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
+                  data-original="#000000" />
+              </svg>
+              Upload
+              <input type="file" id='uploadFile1' className="hidden" onChange={handleFileChange}/>
             </label>
-            <input id="file" type="file" onChange={handleFileChange} ref={ref}/>
+            <p className="truncate w-3/5">{file?.name}</p>
+            </div>
         </div>
         <Button size="lg" color="blue-gray" className="rounded-none" onClick={handleThreadSubmit}>Send</Button>
         </div>

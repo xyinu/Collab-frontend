@@ -11,6 +11,7 @@ function NavBar(){
     const navigate = useNavigate();
     async function logout(){
         localStorage.removeItem('type')
+        localStorage.removeItem('email')
         await msalInstance.logoutRedirect()
     }
     const [type,setType] = useState('')
@@ -97,12 +98,23 @@ function NavBar(){
       >
     <Link to="/faq" className="hover:text-ntured">FAQ</Link>
     </Typography>
+    {
+        type==='Prof'&&
+    <Typography
+        as="li"
+        variant="h4"
+        color="white"
+        className="p-1 font-medium"
+      >
+    <Link to="/data" className="hover:text-ntured">Data</Link>
+    </Typography>
+    }
   </div>
   {/* <!-- right header section --> */}
   <div className="flex items-center space-x-2">
       {
         type==='Prof'&&
-    <button className="px-2 py-1 text-gray-200 bg-ntured rounded-md">
+    <button className="px-2 py-1 text-gray-200 bg-ntured rounded-none">
     <Typography
         variant="h6"
         className="p-1 font-medium"
@@ -113,7 +125,7 @@ function NavBar(){
     </Typography>
     </button>
       }
-    <button className="px-2 py-1 text-gray-200 bg-ntured rounded-md" onClick={logout}>
+    <button className="px-2 py-1 text-gray-200 bg-ntured rounded-none" onClick={logout}>
     <Typography
         variant="h6"
         className="p-1 font-medium"
