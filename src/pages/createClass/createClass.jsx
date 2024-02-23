@@ -48,6 +48,8 @@ function CreateClass(){
               })
             await getClass()
             setFormErrors({})
+            setFile(null)
+            setInputs()
             return true
         } else{
             setFormErrors(errors);
