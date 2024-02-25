@@ -19,7 +19,6 @@ function CardView({data,getTicket}) {
     const [inputs,setInputs] = useState('')
     const [show, setShow]=useState(false)
     const [file, setFile] = useState(null);
-    console.log(file)
     const handleThreadSubmit = async () =>{
       if(inputs){
         await client.post('createthread/',{details:inputs,id:data.id,file:file},{

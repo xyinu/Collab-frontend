@@ -1,10 +1,7 @@
 import {
     Card,
-    CardBody,
     Typography,
-    Button,
   } from "@material-tailwind/react";
-import dayjs from 'dayjs'
 import Modal from "../../../components/modals";
 import useEditForm from "./editClassForm";
 import useDeleteForm from "./deleteClassForm";
@@ -54,7 +51,7 @@ function CardView({data,getClass,code}) {
                 key={idx}
                 data={dat}
                 title={'Student Details'}
-                buttonName={`${dat?.student.name}, ${dat?.student.VMS}`}
+                buttonName={`${idx+1}) ${dat?.student.name}, ${dat?.student.VMS}`}
                 />
               )
             })}
