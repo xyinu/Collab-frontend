@@ -37,15 +37,24 @@ function CardView({data,getStudent}) {
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Program and Year: {data.program_year}
           </Typography>
+          {
+            data.student_type &&
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Student Type: {data.student_type}
           </Typography>
+          }
+          {
+            data.course_type && 
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Course Type: {data.course_type}
           </Typography>
+          }
+          {
+            data.nationality &&
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Nationality: {data.nationality}
           </Typography>
+          }
           <Typography variant="h6" color="blue-gray" className="mb-2">
             Groups Registered: 
           </Typography>
