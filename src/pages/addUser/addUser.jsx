@@ -60,9 +60,6 @@ function AddUser(){
         } else if (!regex.test(values.email)) {
             errors.email = "This is not a valid email format!";
         }
-        if(groupInput.length===0){
-            errors.group="Need to assign Course Group Type"
-        }
         return errors;
     };
 
