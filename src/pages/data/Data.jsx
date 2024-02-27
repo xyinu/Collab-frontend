@@ -49,10 +49,8 @@ function DataPage() {
       setScreen(prev=>!prev)
     }
     useEffect(()=>{
-      if(isAuthenticated){
         getData()
-      }
-    },[isAuthenticated])
+    },[])
 
     ChartJS.register(
       CategoryScale,

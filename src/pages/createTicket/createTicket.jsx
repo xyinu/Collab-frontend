@@ -13,13 +13,10 @@ function CreateTicket(){
         setTickets(request.data)
     }
     const {TicketForm, handleTicketSubmit} = useTicketForm({getTicket})
-    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        if(isAuthenticated){
             getTicket()
-        }
-    },[isAuthenticated])
+    },[])
 
 
     return(

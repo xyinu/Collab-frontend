@@ -73,11 +73,11 @@ function FAQ(){
     const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        if(isAuthenticated){
-            getFaq()
+        Promise.all([
+            getFaq(),
             getCategories()
-        }
-    },[isAuthenticated])
+        ])
+    },[])
 
     function Form(){
         return(

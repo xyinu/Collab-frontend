@@ -89,13 +89,10 @@ function CreateClass(){
                 </form>
         )
     }
-    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-      if(isAuthenticated){
         getClass()
-      }
-    },[isAuthenticated])
+    },[])
     
     return (
         <div className="flex flex-col h-screen">

@@ -75,13 +75,9 @@ function useStudentForm ({getStudent}){
         }
     }
 
-    const isAuthenticated = useIsAuthenticated();
-
     useEffect(()=>{
-        if(isAuthenticated){
             getGroups()
-        }
-    },[isAuthenticated])
+    },[])
 
     const StudentForm = () =>{
         return (

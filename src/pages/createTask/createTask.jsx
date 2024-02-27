@@ -96,9 +96,11 @@ function CreateTask(){
 
     useEffect(()=>{
         if(isAuthenticated){
-            getTask()
-            getTA()
-            getGroups()
+            Promise.all([
+                getTask(),
+                getTA(),
+                getGroups()
+            ])
         }
     },[isAuthenticated])
 

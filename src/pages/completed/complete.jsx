@@ -27,11 +27,11 @@ function Completed(){
     const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        if(isAuthenticated){
-            getTask()
+        Promise.all([
+            getTask(),
             getTicket()
-        }
-    },[isAuthenticated])
+        ])
+    },[])
 
     return(
         <div className="flex flex-col h-screen">

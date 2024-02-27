@@ -71,14 +71,13 @@ function AddUser(){
         await client.post('deleteuser/',{email})
         getUser()
     }
-    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        if(isAuthenticated){
-            getUser()
+        Promise.all([
+            getUser(),
             getGroups()
-        }
-    },[isAuthenticated])
+        ])
+    },[])
 
     return (
         <div>

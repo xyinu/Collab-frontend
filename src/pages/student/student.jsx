@@ -46,13 +46,10 @@ function StudentPage(){
             return false
         }
     }
-    const isAuthenticated = useIsAuthenticated();
 
     useEffect(()=>{
-        if(isAuthenticated){
-            getStudent()
-        }
-    },[isAuthenticated])
+        getStudent()
+    },[])
 
     function Form(){
         return(
