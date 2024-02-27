@@ -58,8 +58,8 @@ function StudentPage(){
 
     useEffect(()=>{
         Promise.all([
-            getGroups(),
-            getStudent()
+            getStudent(),
+            getGroups()
         ])
     },[])
 

@@ -103,10 +103,12 @@ function useTicketForm ({getTicket}){
     useEffect(()=>{
         if(isAuthenticated){
             Promise.all(
-                [getStudent(),
+                [
+                getStudent(),
                 getProf(),
                 getCategories(),
-                getGroups()]
+                getGroups()
+                ]
             )
         }
     },[isAuthenticated])

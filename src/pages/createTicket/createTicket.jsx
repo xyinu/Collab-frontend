@@ -15,7 +15,7 @@ function CreateTicket(){
     const {TicketForm, handleTicketSubmit} = useTicketForm({getTicket})
 
     useEffect(()=>{
-            getTicket()
+        getTicket()
     },[])
 
 
