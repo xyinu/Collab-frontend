@@ -24,10 +24,7 @@ function ListView({items,header,getStudent,groups}) {
       const resultsArray = items.filter(item => 
         item.VMS.toLowerCase().includes(val) || 
         item.name.toLowerCase().includes(val) ||
-        item.nationality.toLowerCase().includes(val) ||
-        item.student_type.toLowerCase().includes(val) ||
-        item.course_type.toLowerCase().includes(val) ||
-        item.group_course.map((data)=>data.group.code.toLowerCase().includes(val) || data.group.type.toLowerCase().includes(val) || data.group.course_code.toLowerCase().includes(val)).includes(true)
+        item.group_course.map((data)=>data.code.toLowerCase().includes(val) || data.type.toLowerCase().includes(val) || data.course_code.toLowerCase().includes(val)).includes(true)
         )
       setStore(resultsArray)
   }

@@ -63,7 +63,7 @@ function CardView({data,getStudent,groups}) {
               return(
                 <div key={idx}>
           <Typography variant="h6" color="blue-gray" className="mb-2">
-            {idx+1+')'} Courses Code: {data.group.course_code}, Group Code: {data.group.code}, Type: {data.group.type}
+            {idx+1+')'} Courses Code: {data.course_code}, Group Code: {data.code}, Type: {data.type}
           </Typography>
                 </div>
               )

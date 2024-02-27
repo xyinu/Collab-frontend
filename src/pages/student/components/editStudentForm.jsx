@@ -11,7 +11,7 @@ function useEditForm ({getStudent,data,hold}){
         setInputs(data)
         setGroups(hold)
         const selectedgroup=data?.group_course.map((dat)=>{
-            return `${dat.group.course_code} ${dat.group.code} ${dat.group.type}`
+            return `${dat.course_code} ${dat.code} ${dat.type}`
         })
         setGroupInput(selectedgroup)
     },[data,hold])
