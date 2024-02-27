@@ -20,8 +20,8 @@ function ListView({items,header, Form, saveFunction, getClass}) {
     let resultsArray = items.map(item => {
       return {
         ...item,
-        group:item.group.filter((data)=>data.type.toLowerCase().includes(val) || data.group_code.toLowerCase().includes(val) || data.name.toLowerCase().includes(val) || item.code.toLowerCase().includes(val) || 
-        data.students.map((dat)=>dat.student.name.toLowerCase().includes(val)||dat.student.VMS.toLowerCase().includes(val)).includes(true)
+        group:item.group.filter((data)=>data.type.toLowerCase().includes(val) || data.group_code.toLowerCase().includes(val) || data.name.toLowerCase().includes(val) ||
+        data.students.map((dat)=>dat.name.toLowerCase().includes(val)||dat.VMS.toLowerCase().includes(val)).includes(true) || item.code.toLowerCase().includes(val)
         )
       }
     }
