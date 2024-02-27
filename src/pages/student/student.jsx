@@ -11,7 +11,7 @@ function StudentPage(){
     const [students, setStudents] = useState([]);
     const [formErrors, setFormErrors] = useState({});
     const [groups, setGroups]=useState([])
-
+    const type=localStorage.getItem('type')
     const validate = (values) => {
         const errors = {};
         if (!values.title) {
@@ -33,8 +33,13 @@ function StudentPage(){
         setGroups(request.data)
     }
     async function getStudent(){
-        const request= await client.get('student/')
-        setStudents(request.data)
+        if(type==='TA'){
+            const request= await client.get('studentTA/')
+            setStudents(request.data)
+        }else{
+            const request= await client.get('student/')
+            setStudents(request.data)
+        }
     }
 
     const handleSubmit = async (event) =>{

@@ -11,7 +11,6 @@ import Modal from "../../../components/modals";
 import useCommentForm from "./commentForm";
    
 function TaskCardView({data,getTask}) {
-  const type=localStorage.getItem('type')
   const email=localStorage.getItem('email')
   const {commentTicket,CommentForm}=useCommentForm({getItem:getTask,item:'task'})
   const download = async(id,file_name) =>{
