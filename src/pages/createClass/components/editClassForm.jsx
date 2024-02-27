@@ -23,7 +23,7 @@ function useEditForm ({getClass,students,course_code,group_code}){
     const getStudents = async() =>{
         const request = await client.get('studenttrunc/')
         if(students){
-            const left = request.data.filter(data=>!students.some(dat=>dat.student.VMS===data.VMS))
+            const left = request.data.filter(data=>!students.some(dat=>dat.VMS===data.VMS))
             setStudentsLeft(left)
         }
     }

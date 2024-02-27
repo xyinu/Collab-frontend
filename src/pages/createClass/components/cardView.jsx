@@ -51,7 +51,7 @@ function CardView({data,getClass,code}) {
                 key={idx}
                 data={dat}
                 title={'Student Details'}
-                buttonName={`${idx+1}) ${dat?.student.name}, ${dat?.student.VMS}`}
+                buttonName={`${idx+1}) ${dat?.name}, ${dat?.VMS}`}
                 />
               )
             })}

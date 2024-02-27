@@ -36,32 +36,32 @@ function ModalText({title,data,buttonName}) {
                 {/*body*/}
                 <div className="relative p-6 flex-auto w-full">
                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                  Name: {data.student.name}
+                  Name: {data.name}
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                  VMS: {data.student.VMS}
+                  VMS: {data.VMS}
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                  Program and Year: {data.student.program_year}
+                  Program and Year: {data.program_year}
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                  Student Type: {data.student.student_type}
+                  Student Type: {data.student_type}
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                  Course Type: {data.student.course_type}
+                  Course Type: {data.course_type}
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                  Nationality: {data.student.nationality}
+                  Nationality: {data.nationality}
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-2">
                   Groups Registered: 
                 </Typography>
                 {
-                  data.student.group_course.map((data, idx)=>{
+                  data.group_course.map((data, idx)=>{
                     return(
                       <div key={idx}>
                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                  {idx+1+')'} Courses Code: {data.group.course_code}, Group Code: {data.group.code}, Type: {data.group.type}
+                  {idx+1+')'} Courses Code: {data.course_code}, Group Code: {data.code}, Type: {data.type}
                 </Typography>
                       </div>
                     )
@@ -71,7 +71,7 @@ function ModalText({title,data,buttonName}) {
                   Tickets Created: 
                 </Typography>
                 {
-                  data.student.tickets.map((data, idx)=>{
+                  data.tickets.map((data, idx)=>{
                     return(
                       <div key={idx}>
                 <Typography variant="h6" color="blue-gray" className="mb-2">

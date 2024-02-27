@@ -81,7 +81,7 @@ function useTicketForm ({getTicket}){
     }
 
     async function getStudent(){
-        const request = await client.get('student/')
+        const request = await client.get('studenttrunc/')
         setStudent(request.data)
     }
 
