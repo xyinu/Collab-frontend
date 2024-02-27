@@ -55,7 +55,7 @@ function ListView({items,header, Form, saveFunction, getClass}) {
             return data.group.map((dat,idx)=>{
               return(
                 <ListItem className="mb-2 border-gray-950 border-b-2 focus:bg-blue-500 flex justify-between flex-col" key={idx} selected={selected.idx === idx} onClick={() => setSelectedItem(idx,dat,data.code)}>
-                    <Typography variant="h6">Course Name: {data.name}</Typography>                    
+                    <Typography variant="h6">Course Name: {dat.name}</Typography>                    
                     <Typography variant="h6">Course Code: {data.code}</Typography>
                     <Typography variant="h6">Group Code: {dat.group_code}</Typography>
                     <Typography variant="h6">Group Type: {dat.type}</Typography>
