@@ -17,16 +17,15 @@ function ListView({items,header, Form, saveFunction, getClass}) {
   const handleSearchChange = (e) => {
     if (!e.target.value) return setStore(items)
     const val = e.target.value.toLowerCase()
-    const resultsArray = items.map(item => {
+    let resultsArray = items.map(item => {
       return {
         ...item,
-        group:item.group.filter((data)=>data.type.toLowerCase().includes(val) || data.group_code.toLowerCase().includes(val) || 
+        group:item.group.filter((data)=>data.type.toLowerCase().includes(val) || data.group_code.toLowerCase().includes(val) || data.name.toLowerCase().includes(val) || item.code.toLowerCase().includes(val) || 
         data.students.map((dat)=>dat.student.name.toLowerCase().includes(val)||dat.student.VMS.toLowerCase().includes(val)).includes(true)
         )
       }
     }
     )
-    
     setStore(resultsArray)
   }
   return (
