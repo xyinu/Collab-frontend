@@ -5,8 +5,8 @@ import search from "../../../assets/search.webp"
 import Modal from "../../../components/modals";
 import useStudentForm from "./addStudentForm";
  
-function ListView({items,header,getStudent}) {
-  const {StudentForm,handleSubmit} = useStudentForm({getStudent})
+function ListView({items,header,getStudent,groups}) {
+  const {StudentForm,handleSubmit} = useStudentForm({getStudent,hold:groups})
   const [selected, setSelected] = useState({idx:0,data:items?.[0]});
   const [store, setStore] = useState()
   const type=localStorage.getItem('type')
@@ -63,7 +63,7 @@ function ListView({items,header,getStudent}) {
         })}
       </ul>
     </Card>
-    <CardView data={selected.data} getStudent={getStudent}/>
+    <CardView data={selected.data} getStudent={getStudent} groups={groups}/>
     </div>
   );
 }

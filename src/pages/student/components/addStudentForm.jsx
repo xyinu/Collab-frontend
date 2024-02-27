@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
 import client from "../../../axios";
 import { Button, Typography } from "@material-tailwind/react";
-import { useIsAuthenticated } from "@azure/msal-react";
 
-function useStudentForm ({getStudent}){
+function useStudentForm ({getStudent, hold}){
     const [inputs, setInputs] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [groups, setGroups]=useState([])
     const [groupInput, setGroupInput]=useState([])
-
-    async function getGroups(){
-        const request = await client.get('group/')
-        setGroups(request.data)
-    }
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -76,8 +70,8 @@ function useStudentForm ({getStudent}){
     }
 
     useEffect(()=>{
-            getGroups()
-    },[])
+        setGroups(hold)
+    },[hold])
 
     const StudentForm = () =>{
         return (

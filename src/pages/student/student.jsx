@@ -10,6 +10,7 @@ function StudentPage(){
     const [inputs, setInputs] = useState({});
     const [students, setStudents] = useState([]);
     const [formErrors, setFormErrors] = useState({});
+    const [groups, setGroups]=useState([])
 
     const validate = (values) => {
         const errors = {};
@@ -27,7 +28,10 @@ function StudentPage(){
       const value = event.target.value;
       setInputs(values => ({...values, [name]: value}))
     }
-
+    async function getGroups(){
+        const request = await client.get('group/')
+        setGroups(request.data)
+    }
     async function getStudent(){
         const request= await client.get('student/')
         setStudents(request.data)
@@ -48,7 +52,10 @@ function StudentPage(){
     }
 
     useEffect(()=>{
-        getStudent()
+        Promise.all([
+            getGroups(),
+            getStudent()
+        ])
     },[])
 
     function Form(){
@@ -81,7 +88,7 @@ function StudentPage(){
     return(
         <div className="flex flex-col h-screen">
             <NavBar/>
-            <ListView items={students} header={'Students'} getStudent={getStudent} Form={Form} saveFunction={handleSubmit} setStudents={setStudents}/>
+            <ListView items={students} header={'Students'} getStudent={getStudent} groups={groups} Form={Form} saveFunction={handleSubmit} setStudents={setStudents}/>
         </div>
     )
 }

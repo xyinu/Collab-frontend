@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
 import client from "../../../axios";
 
-function useEditForm ({getStudent,data}){
+function useEditForm ({getStudent,data,hold}){
     const [inputs, setInputs] = useState(data);
     const [formErrors, setFormErrors] = useState({});
     const [groups, setGroups]=useState([])
     const [groupInput, setGroupInput]=useState([])
-    async function getGroups(){
-        const request = await client.get('group/')
-        setGroups(request.data)
-    }
+
     useEffect(()=>{
         setInputs(data)
-        getGroups()
+        setGroups(hold)
         const selectedgroup=data?.group_course.map((dat)=>{
             return `${dat.group.course_code} ${dat.group.code} ${dat.group.type}`
         })
         setGroupInput(selectedgroup)
-    },[data])
+    },[data,hold])
     
     const handleChange = (event) => {
         const name = event.target.name;

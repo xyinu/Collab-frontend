@@ -9,9 +9,9 @@ import Modal from "../../../components/modals";
 import useEditForm from "./editStudentForm";
 
    
-function CardView({data,getStudent}) {
+function CardView({data,getStudent,groups}) {
   const type=localStorage.getItem('type')
-  const {EditForm, handleEditSubmit} = useEditForm({getStudent,data})
+  const {EditForm, handleEditSubmit} = useEditForm({getStudent,data,hold:groups})
   
     return (
         <>
