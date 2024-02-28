@@ -4,6 +4,9 @@ import { msalInstance } from "./main";
 
 const client = axios.create({
   baseURL: import.meta.env.VITE_ENVIRONMENT ==='Production'? "https://test-fyp2.azurewebsites.net" : "http://localhost:8000",
+    params: {
+    t: new Date().getTime()
+  }
 });
 
 client.interceptors.request.use(
