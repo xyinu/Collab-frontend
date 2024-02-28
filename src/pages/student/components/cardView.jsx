@@ -77,7 +77,7 @@ function CardView({data,getStudent,groups}) {
               return(
                 <div key={idx}>
           <Typography variant="h6" color="blue-gray" className="mb-2">
-            {idx+1+')'} Title: {data.title}, Category: {data.category}, {data.status==='completed'?'Closed': 'Last Reply: '+data.status}
+            {idx+1+')'} Title: {data.title}, Category: {data.category}, {data.status==='completed'?'Closed': 'Ongoing'}
           </Typography>
                 </div>
               )
