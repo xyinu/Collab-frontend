@@ -1,8 +1,9 @@
-# React + Vite
+# FYP-Collab-frontend
+**To access the frontend for this application please go to** [Collab-backend](https://github.com/xyinu/Collab-backend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Why was this created?**
+Professors and teaching assistants have had trouble when communicating through email due to the inefficiency of emailing and the difficulty of tracking information from the thousands of emails in their inboxes. This web application aims to solve the problems of using email and make the lives of professors and teaching assistants easier.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**How to run**
+1. install packages : npm install
+2. run frontend: npm run dev
