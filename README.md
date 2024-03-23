@@ -5,5 +5,5 @@
 Professors and teaching assistants have had trouble when communicating through email due to the inefficiency of emailing and the difficulty of tracking information from the thousands of emails in their inboxes. This web application aims to solve the problems of using email and make the lives of professors and teaching assistants easier.
 
 **How to run**
-1. install packages : npm install
-2. run frontend: npm run dev
+1. Install packages: npm install
+2. Run frontend: npm run dev
